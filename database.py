@@ -51,3 +51,20 @@ def insert_user(nombre_usuario, clave):
         
     except Exception as e:
         print(f"Hubo un error {e}")
+        
+#🌟LOGUEAR USUARIO
+
+def loguear_user(nombre):
+    
+    conexion = Create_DB()
+    cursor = conexion.cursor()
+    
+    try:
+        cursor.execute("SELECT clave FROM Usuarios WHERE nombre_usuario = ?",(nombre,))
+        
+        resultado = cursor.fetchone()
+        return resultado
+    except Exception as e:
+        print(f"Hubo un error al loguear usuario: {e}")
+        
+loguear_user("victoria")

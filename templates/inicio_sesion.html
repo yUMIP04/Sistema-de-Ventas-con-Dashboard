@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registro de Sesion</title>
+    <title>Inicio de Sesion</title>
 </head>
 <body>
 
@@ -15,21 +15,22 @@
         <form action="" method="post">
             <label for="nombre">Nombre:</label>
             <br>
+            <br>
             <input type="text" name="nombre" id="input-form" required>
+            <br>
             <br>
             <label for="password">Nueva Clave:</label>
             <br>
+            <br>
             <input type="password" name="clave" maxlength="8" required>
             <br>
-            <label for="">Confirmacion de Clave:</label>
-            <br>
-            <input type="password" name="clave-confirmacion" maxlength="8" required>
-
             <br>
             <input type="submit" value="Registrarse" name="registrar-usuario">
         </form>
+
+        <br>
+         <a href="{{ url_for('index') }}">¿No tienes cuenta?Registrate</a>
     </div>
 
-    
 </body>
 </html>

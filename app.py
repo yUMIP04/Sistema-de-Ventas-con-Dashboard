@@ -8,6 +8,7 @@ Create_DB()
 Create_Tables()
 @app.route("/", methods=['GET', 'POST'])
 
+#🌟REGISTRO
 def index():  
     
     if request.method == 'POST':
@@ -22,6 +23,12 @@ def index():
             insert_user(nombre_usuario, clave_hasheada)
         
     return render_template("index.html") 
+
+#🌟INICIO DE SESION
+@app.route("/login", methods=['GET', 'POST'])
+def inicio_sesion():
+    
+    return render_template('inicio_sesion.html')
 
 if __name__ == ('__main__'):
     app.run(debug=True)
