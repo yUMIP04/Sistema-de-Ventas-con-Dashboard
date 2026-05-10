@@ -1,8 +1,9 @@
-from flask import Flask,redirect,url_for,render_template, request
-from database import Create_DB, Create_Tables, insert_user
+from flask import Flask,redirect,url_for,render_template, request,flash
+from database import Create_DB, Create_Tables, insert_user, loguear_user
 from werkzeug.security import generate_password_hash, check_password_hash
 
 app = Flask(__name__)
+app.secret_key = 'victoria_secret_key'
 
 Create_DB()
 Create_Tables()
@@ -27,8 +28,39 @@ def index():
 #🌟INICIO DE SESION
 @app.route("/login", methods=['GET', 'POST'])
 def inicio_sesion():
-    
+
+    if request.method == 'POST':
+        nombre_usuario = request.form['nombre']
+        clave_txt = request.form['clave']
+
+        clave_hash = loguear_user(nombre_usuario)
+
+        if clave_hash:
+
+            if check_password_hash(clave_hash, clave_txt):
+                print("Exito contraseña correcta")
+
+                return redirect(url_for('Inicio_dashboard'))
+            
+            else:
+                print("contraseña incorrecta")
+        else:
+            print("Contraseñas no coinciden")
+            
+                
+            
+
+
     return render_template('inicio_sesion.html')
+
+
+#🌟INICIO PAGINA
+
+@app.route('/Inicio')
+
+def Inicio_dashboard():
+
+    return render_template('Inicio.html')
 
 if __name__ == ('__main__'):
     app.run(debug=True)

@@ -63,8 +63,17 @@ def loguear_user(nombre):
         cursor.execute("SELECT clave FROM Usuarios WHERE nombre_usuario = ?",(nombre,))
         
         resultado = cursor.fetchone()
-        return resultado
+
+        if resultado:
+
+            return resultado[0]
+        
+        else:
+            return None
+        
     except Exception as e:
         print(f"Hubo un error al loguear usuario: {e}")
-        
-loguear_user("victoria")
+        return None
+    
+    finally:
+        conexion.close()
