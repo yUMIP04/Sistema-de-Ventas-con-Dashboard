@@ -28,31 +28,26 @@ def index():
 #🌟INICIO DE SESION
 @app.route("/login", methods=['GET', 'POST'])
 def inicio_sesion():
+      
+      if request.method == 'POST':
+        nombre = request.form.get('nombre')
+        clave_txt = request.form.get('clave')
 
-    if request.method == 'POST':
-        nombre_usuario = request.form['nombre']
-        clave_txt = request.form['clave']
+        loguear = loguear_user(nombre)
 
-        clave_hash = loguear_user(nombre_usuario)
-
-        if clave_hash:
+        if loguear is not None:
+            clave_hash = loguear[0]
 
             if check_password_hash(clave_hash, clave_txt):
-                print("Exito contraseña correcta")
-
+                print("¡Inicio de sesión exitoso! Redirigiendo...")
+              
                 return redirect(url_for('Inicio_dashboard'))
-            
             else:
-                print("contraseña incorrecta")
+                print("Contraseña incorrecta para este usuario.")
         else:
-            
-            print("Contraseñas no coinciden")
-            
-                
-            
-
-
-    return render_template('inicio_sesion.html')
+            print("El nombre de usuario no existe en la base de datos.")
+      
+      return render_template('inicio_sesion.html')
 
 
 #🌟INICIO PAGINA

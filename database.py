@@ -47,6 +47,9 @@ def insert_user(nombre_usuario, clave):
                    VALUES (?, ?) 
                    ''',(nombre_usuario, clave))
         
+        conexion.commit()
+        conexion.close()
+        
         print(f"☑️ Se inserto correctamente el usuario {nombre_usuario} con su clave {clave}")
         
     except Exception as e:
@@ -64,16 +67,11 @@ def loguear_user(nombre):
         
         resultado = cursor.fetchone()
 
-        if resultado:
-
-            return resultado[0]
-        
-        else:
-            return None
+        return resultado
         
     except Exception as e:
         print(f"Hubo un error al loguear usuario: {e}")
-        return None
+        
     
     finally:
         conexion.close()
