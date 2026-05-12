@@ -1,12 +1,15 @@
-from flask import Flask,redirect,url_for,render_template, request,flash
+from flask import Flask,redirect,url_for,render_template, request,flash,session
 from database import Create_DB, Create_Tables, insert_user, loguear_user
 from werkzeug.security import generate_password_hash, check_password_hash
-
+from dotenv import load_dotenv
+import os 
 app = Flask(__name__)
-app.secret_key = 'victoria_secret_key'
+app.secret_key = os.getenv("SECRET_KEY")
 
+load_dotenv()
 Create_DB()
 Create_Tables()
+
 @app.route("/", methods=['GET', 'POST'])
 
 #🌟REGISTRO
@@ -40,7 +43,8 @@ def inicio_sesion():
 
             if check_password_hash(clave_hash, clave_txt):
                 print("¡Inicio de sesión exitoso! Redirigiendo...")
-              
+
+                session['nombre_usuario'] = nombre
                 return redirect(url_for('Inicio_dashboard'))
             else:
                 print("Contraseña incorrecta para este usuario.")
@@ -57,6 +61,25 @@ def inicio_sesion():
 def Inicio_dashboard():
 
     return render_template('Inicio.html')
+
+
+#🌟BASE
+
+@app.route('/Base')
+
+def Base():
+
+    return render_template('Base.html')
+
+
+#🌟CERRAR SESION
+
+@app.route('/logout')
+def logout():
+
+    session.pop('nombre_usuario', None)
+
+    return redirect(url_for('inicio_sesion'))
 
 if __name__ == ('__main__'):
     app.run(debug=True)

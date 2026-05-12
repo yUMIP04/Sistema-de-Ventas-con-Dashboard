@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{%block title %} Base {% endblock %}</title>
+</head>
+<body>
+    <header class="barra-opciones">
+        <h1>Bienvenido al Analisis de Ventas</h1>
+
+        <p>{{ session['nombre_usuario'] }}</p>
+        <ul class="opciones" id="opciones">
+            <li> <a href="/logout">Cerrar Sesion</a> </li>
+        </ul>
+    </header>
+
+    {% block content %}
+    {%  endblock %}
+
+    <!-- CONTENIDO -->
+
+
+</body>
+</html>
