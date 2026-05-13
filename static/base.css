@@ -3,6 +3,31 @@
     --azulFuerte: #093C5D;
     --azulMediano : #3B7597;
     --azulClaro : #6FD1D7;
-    ---pistache : #5DF8D8
+    ---pistache : #5DF8D8;
+    --blanco: #FAFBF5;
 
+}
+
+*{
+    margin: 0;
+    padding: 0;
+}
+
+.barra-opciones{
+    background-color: var(--azulClaro);
+    display: flex;
+    width: 100%;
+    height: 100%;
+    justify-content: space-between;
+    
+}
+
+.inicio{
+    display: flex;
+    color: var(--blanco);
+    
+}
+
+.inicio li p{
+    justify-content: space-between;
 }
