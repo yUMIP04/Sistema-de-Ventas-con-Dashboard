@@ -3,23 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!--CSS-->
+    <link rel="stylesheet" href="static/base.css">
+    <!--FONTS-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+<!--ICONS-->
+
+<!-- Basic Icons -->
+<link href="https://cdn.boxicons.com/3.0.8/fonts/basic/boxicons.min.css" rel="stylesheet">
+<!-- Filled Icons -->
+<link href="https://cdn.boxicons.com/3.0.8/fonts/filled/boxicons-filled.min.css" rel="stylesheet">
+<!-- Brand Icons -->
+<link href="https://cdn.boxicons.com/3.0.8/fonts/brands/boxicons-brands.min.css" rel="stylesheet">
     <title>{%block title %} Base {% endblock %}</title>
 </head>
 <body>
     <header class="barra-opciones">
-        <h1>Bienvenido al Analisis de Ventas</h1>
+       
 
-        <p>{{ session['nombre_usuario'] }}</p>
-        <ul class="opciones" id="opciones">
-            <li> <a href="/logout">Cerrar Sesion</a> </li>
+        
+        <ul class="inicio">
+            <li><i class="bx bx-home-alt" /></i>Inicio</li>
+
+           
+        </ul>
+
+        <div class="nombre-usuario">
+         <p><i class="bx bx-user-circle" /></i>{{ session['nombre_usuario'] }}<i class="bx bx-caret-big-left" /></i></p>
+         </div>
+         
+        <ul class="opciones" id="opciones" style="display: none;">
+            <li >Cerrar Sesion</li>
         </ul>
     </header>
-
-    {% block content %}
-    {%  endblock %}
-
-    <!-- CONTENIDO -->
-
+    
 
 </body>
 </html>

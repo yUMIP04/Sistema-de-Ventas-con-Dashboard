@@ -1,6 +1,12 @@
 {% extends "base.html" %}
 {% block title %} Registro - Ventas {% endblock %}
 
-{%block content %}
+{% block content %}
+<!-- NO uses la etiqueta <body> aquí, esa ya vive en base.html -->
+<h1>Bienvenido al Analisis de Ventas</h1>
 
-{%endblock%}
+<div class="insert file">
+    <p><strong>Inserta tu archivo CSV</strong></p>
+    <input type="file" name="file-csv" id="file-csv" accept=".csv">
+</div>
+{% endblock %}
