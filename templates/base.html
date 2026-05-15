@@ -33,14 +33,16 @@
         </ul>
 
         <div class="nombre-usuario">
-         <p><i class="bx bx-user-circle" /></i>{{ session['nombre_usuario'] }}<i class="bx bx-caret-big-left" /></i></p>
+         <p><i class="bx bx-user-circle" /></i>{{ session['nombre_usuario'] }}</p>
          </div>
          
         <ul class="opciones" id="opciones" style="display: none;">
             <li >Cerrar Sesion</li>
         </ul>
     </header>
-    
+    {% block content%} {%endblock%}
 
 </body>
+
+<script src="{{ url_for('static', filename='JS/index.js') }}"></script>
 </html>
