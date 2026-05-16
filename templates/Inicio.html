@@ -5,13 +5,23 @@
 
 <h1>Bienvenido al Analisis de Ventas</h1>
 
-<div class="insert file">
+<div class="contenedor">
+
+<div class="insert-file">
+
+    <div class="csv-insert">
     <p id="nombre-archivo"><strong>Inserta tu archivo CSV</strong></p>
     <input type="file" name="file-csv" id="file-csv" accept=".csv,.pdf" hidden>
     <button id="btn-seleccionar">Seleccionar Archivo</button>
+    </div>
+      <br>
+        <br>
 
     <div>
         <input type="submit" id="btn-subir" value="Subir Archivo">
     </div>
+
+</div>
+
 </div>
 {% endblock %}

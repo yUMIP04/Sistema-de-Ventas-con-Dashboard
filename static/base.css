@@ -14,6 +14,10 @@
     font-family: 'Roboto';
 }
 
+*, *::after, *::before{
+     box-sizing: content-box;
+}
+
 body{
     background-color: var(--blanco);
 }
@@ -53,3 +57,40 @@ li{
    cursor: pointer;
 }
 
+/*CONTENEDOR DE CSV */
+
+.contenedor{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(to right, var(--blanco), var(---pistache));
+    width: 290px;
+    height: 290px;
+    overflow: hidden;
+    border-radius: 8px;
+}
+
+.insert-file{
+    overflow: hidden;
+    width: 210px;
+    height: 170px;
+    display:block;
+   align-content: center;
+   background-color: var(--blanco);
+   border-radius: 8px;
+   margin: 0;
+
+}
+
+.csv-insert{
+    text-align: center;
+}
+
+.subir-btn{
+    padding-top: 20px;
+    text-align: center;
+}
+
+#nombre-archivo{
+   text-align: center;
+}
