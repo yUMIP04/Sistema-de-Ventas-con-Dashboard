@@ -25,6 +25,19 @@ def Create_Tables():
                        )
                        ''')
         
+        cursor.execute('''
+                       CREATE TABLE IF NOT EXISTS CSVs(
+                       id_csv INTEGER PRIMARY KEY AUTOINCREMENT,
+                       nombre_usuario VARCHAR,
+                       nombre_csv VARCHAR,
+                       total_productos_Vendidos INTEGER NOT NULL,
+                       total_ventas REAL,
+                       promedio_ventas REAL,
+                       producto_mas_vendido VARCHAR,
+                       categoria_masIngresos VARCHAR,
+                       FOREIGN KEY (nombre_usuario) REFERENCES Usuarios(nombre_usuario) 
+                       )''')
+        
         conexion.commit()
         conexion.close()
         
@@ -54,7 +67,26 @@ def insert_user(nombre_usuario, clave):
         
     except Exception as e:
         print(f"Hubo un error {e}")
+
+#🌟INSERTAR ARCHIVO CSV
+
+def insert_csv(archivo_csv):
+
+    conexion = Create_DB()
+    cursor = conexion.cursor()
+
+    try:
+
+        cursor.execute('''
+                       INSERT INTO CSVs (nombre_csv) VALUES (?)''', (archivo_csv,))
         
+        conexion.commit()
+        conexion.close()
+        print(f"🥳 Se inserto correctamente el archivo {archivo_csv} en la tabla")
+        
+    except Exception as e:
+
+        print(f"❌Hubo un error al insertar el archivo CSV: {e}") 
 #🌟LOGUEAR USUARIO
 
 def loguear_user(nombre):

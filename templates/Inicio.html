@@ -9,10 +9,12 @@
 
 <div class="insert-file">
 
+    <form enctype="multipart/form-data" action="/Inicio" method="POST">
     <div class="csv-insert">
-    <p id="nombre-archivo"><strong>Inserta tu archivo CSV</strong></p>
+
+    <p id="nombre-archivo" name="nombre-archivo"><strong>Inserta tu archivo CSV</strong></p>
     <input type="file" name="file-csv" id="file-csv" accept=".csv,.pdf" hidden>
-    <button id="btn-seleccionar">Seleccionar Archivo</button>
+    <button type="button" id="btn-seleccionar" name="btn-seleccionar">Seleccionar Archivo</button>
     </div>
       <br>
         <br>
@@ -20,6 +22,7 @@
     <div>
         <input type="submit" id="btn-subir" value="Subir Archivo">
     </div>
+</form>
 
 </div>
 

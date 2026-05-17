@@ -1,5 +1,5 @@
 from flask import Flask,redirect,url_for,render_template, request,flash,session
-from database import Create_DB, Create_Tables, insert_user, loguear_user
+from database import Create_DB, Create_Tables, insert_user, loguear_user, insert_csv
 from werkzeug.security import generate_password_hash, check_password_hash
 from dotenv import load_dotenv
 import os 
@@ -56,10 +56,22 @@ def inicio_sesion():
 
 #🌟INICIO PAGINA
 
-@app.route('/Inicio')
+@app.route('/Inicio', methods=['GET', 'POST'])
 
 def Inicio_dashboard():
 
+    if request.method == 'POST':
+
+       archivo_csv = request.files['file-csv']
+
+       if archivo_csv and archivo_csv.filename != '':
+           
+           insert_csv(archivo_csv)
+           print("🌟 Archivo insertado correctamente")
+
+       else:
+           print("❌ El usuario envio el formulario pero no selecciono ningun archivo")
+    
     return render_template('Inicio.html')
 
 
