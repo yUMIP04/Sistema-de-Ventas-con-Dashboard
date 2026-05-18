@@ -16,6 +16,7 @@ archivo_csv.addEventListener("change", () =>{
 
     if(archivo_csv.files.length > 0){
         nombre_archivo.innerHTML = `<strong>Archivo Seleccionado: ${archivo_csv.files[0].name}</strong>`;
+        
     
     }else{
         nombre_archivo.innerHTML = "<strong>Inserta tu archivo CSV</strong>"
@@ -24,14 +25,13 @@ archivo_csv.addEventListener("change", () =>{
 
 
 
-   btn_subir.addEventListener("click", () =>{
+   btn_subir.addEventListener("click", (event) =>{
 
-    if(archivo_csv.files.length > 0){
+    if(archivo_csv.files.length === 0){
 
-        alert("Se subio el Archivo correctamente");
-        nombre_archivo.innerHTML = "<strong>Inserta tu archivo CSV</strong>";
-        archivo_csv.value="";
+        event.preventDefault();
+        alert("Error: No se ha seleccionado ningun archivo aun")
     } else{
-        alert("Error: No se ha seleccionado ningún archivo aún.");
+        alert("Archivo subido correctamente")
     }
 })

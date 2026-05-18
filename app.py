@@ -66,7 +66,7 @@ def Inicio_dashboard():
 
        if archivo_csv and archivo_csv.filename != '':
            
-           insert_csv(archivo_csv)
+           insert_csv(archivo_csv.filename)
            print("🌟 Archivo insertado correctamente")
 
        else:

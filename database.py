@@ -30,7 +30,7 @@ def Create_Tables():
                        id_csv INTEGER PRIMARY KEY AUTOINCREMENT,
                        nombre_usuario VARCHAR,
                        nombre_csv VARCHAR,
-                       total_productos_Vendidos INTEGER NOT NULL,
+                       total_productos_Vendidos INTEGER,
                        total_ventas REAL,
                        promedio_ventas REAL,
                        producto_mas_vendido VARCHAR,
