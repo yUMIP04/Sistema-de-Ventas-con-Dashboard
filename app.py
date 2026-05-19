@@ -66,7 +66,17 @@ def Inicio_dashboard():
 
        if archivo_csv and archivo_csv.filename != '':
            
+           carpeta_csv = os.path.join(app.root_path, 'static', 'uploads', 'CSV')
+           if not os.path.exists(carpeta_csv):
+               
+               os.makedirs(carpeta_csv)
+
+           ruta_final = os.path.join(carpeta_csv, archivo_csv.filename)
+
+           archivo_csv.save(ruta_final)
            insert_csv(archivo_csv.filename)
+           
+
            print("🌟 Archivo insertado correctamente")
 
        else:
