@@ -14,20 +14,31 @@ def ProcesamientoDatos_CSV(archivo_csv):
   else:
     print("🥳 El archivo contiene Datos.")
 
-    verificar_Archivo = archivo_pandas.columns
+     #🌟Que el archivo tenga las columnas que debe traer
+  verificar_Archivo = archivo_pandas.columns
 
-    columnas_obligatorias = ['Nombre Producto',  'Categoria', 'Precio', 'Cantidad Vendida', 'Fecha']
+  columnas_obligatorias = ['Nombre Producto',  'Categoria', 'Precio', 'Cantidad Vendida', 'Fecha']
 
-    for columna in columnas_obligatorias:
+  for columna in columnas_obligatorias:
       
-      if columna in verificar_Archivo:
+    if columna in verificar_Archivo:
 
-        print("🥳Las columnas se encuentran en este archivo")
+      print("🥳Las columnas se encuentran en este archivo")
 
-      else: 
+    else: 
 
-        print("❌Las o alguna columna no se encuentra en el archivo")
+      print("❌Las o alguna columna no se encuentra en el archivo")
 
-    #🌟Que el archivo tenga las columnas que debe traer
+        #🌟total ventas
+  pandas_precio = archivo_pandas["Precio"].str.replace("$", "")
+  pandas_ventas =archivo_pandas["Cantidad Vendida"].str.replace("vendidos", "").str.replace("vendidas", "")
 
+  precio_int = pandas_precio.astype('float')
+  ventas_int = pandas_ventas.astype('int')
+
+  Precio_Ventas = precio_int * ventas_int
+  
+  TotalMonetario_Ventas = Precio_Ventas.sum()
+  print(TotalMonetario_Ventas)
+ 
 ProcesamientoDatos_CSV(archivo_csv)
