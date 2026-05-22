@@ -39,6 +39,32 @@ def ProcesamientoDatos_CSV(archivo_csv):
   Precio_Ventas = precio_int * ventas_int
   
   TotalMonetario_Ventas = Precio_Ventas.sum()
-  print(TotalMonetario_Ventas)
- 
+
+  #🌟 total productos vendidos
+
+  TotalProduct_Vendidos = sum(ventas_int)
+
+  #🌟 promedio de ventas
+
+  Promedio_Ventas = precio_int.mean()
+
+  #🌟 producto mas vendido
+  NombreProducto_tabla = archivo_pandas["Nombre Producto"]
+
+  datosMax ={
+    "Nombre Producto": NombreProducto_tabla,
+    "Cantidad Vendida": ventas_int
+  }
+
+  TablaProductos_Max = pd.DataFrame(datosMax)
+
+  print(TablaProductos_Max)
+  
+
+  
+
+  #🌟 salidas de la consola
+  print(f"Total de ventas:${TotalMonetario_Ventas}.")
+  print(f"Cifra de productos vendidos: {TotalProduct_Vendidos} piezas de toda la tienda.")
+  print(f"Promedio de ventas es: {Promedio_Ventas}")
 ProcesamientoDatos_CSV(archivo_csv)
