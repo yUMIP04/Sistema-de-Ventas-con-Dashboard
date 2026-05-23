@@ -58,9 +58,23 @@ def ProcesamientoDatos_CSV(archivo_csv):
 
   TablaProductos_Max = pd.DataFrame(datosMax)
 
-  print(TablaProductos_Max)
-  
+  ProductoMax_Vendido = TablaProductos_Max.sort_values(by='Cantidad Vendida', ascending=False)
 
+  print(ProductoMax_Vendido)
+  
+  #🌟 categoria con mas ingresos
+
+  datosCategoria = {
+    "Categoria": archivo_pandas["Categoria"],
+    "Precio": precio_int
+  }
+
+  Tabla_Categoria = pd.DataFrame(datosCategoria)
+
+  calculo = Tabla_Categoria.groupby('Precio')['Precio'].sum()
+  print(calculo)
+
+  
   
 
   #🌟 salidas de la consola
