@@ -47,6 +47,11 @@ def ProcesamientoDatos_CSV(archivo_csv):
   #🌟 promedio de ventas
 
   Promedio_Ventas = precio_int.mean()
+  
+  #🌟 categoria con mas ingresos
+  archivo_pandas["Precio"] = pandas_precio.astype('float')
+
+  agrupando_categorias = archivo_pandas.groupby('Categoria')["Precio"].sum().sort_values(ascending=False)
 
   #🌟 producto mas vendido
   NombreProducto_tabla = archivo_pandas["Nombre Producto"]
@@ -61,22 +66,8 @@ def ProcesamientoDatos_CSV(archivo_csv):
   ProductoMax_Vendido = TablaProductos_Max.sort_values(by='Cantidad Vendida', ascending=False)
 
   print(ProductoMax_Vendido)
-  
-  #🌟 categoria con mas ingresos
 
-  datosCategoria = {
-    "Categoria": archivo_pandas["Categoria"],
-    "Precio": precio_int
-  }
-
-  Tabla_Categoria = pd.DataFrame(datosCategoria)
-
-  calculo = Tabla_Categoria.groupby('Precio')['Precio'].sum()
-  print(calculo)
-
-  
-  
-
+  print(agrupando_categorias)
   #🌟 salidas de la consola
   print(f"Total de ventas:${TotalMonetario_Ventas}.")
   print(f"Cifra de productos vendidos: {TotalProduct_Vendidos} piezas de toda la tienda.")
