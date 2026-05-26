@@ -1,10 +1,9 @@
 import pandas as pd
 import os
 
-archivo_csv = 'static/uploads/CSV/archivo.csv'
-
 def ProcesamientoDatos_CSV(archivo_csv):
 
+  archivo_csv = f'static/uploads/CSV/{archivo_csv}'
   archivo_pandas = pd.read_csv(archivo_csv)
 
 #🌟Revisar que el archivo no este vacio
@@ -72,4 +71,5 @@ def ProcesamientoDatos_CSV(archivo_csv):
   print(f"Total de ventas:${TotalMonetario_Ventas}.")
   print(f"Cifra de productos vendidos: {TotalProduct_Vendidos} piezas de toda la tienda.")
   print(f"Promedio de ventas es: {Promedio_Ventas}")
-ProcesamientoDatos_CSV(archivo_csv)
+
+ProcesamientoDatos_CSV("archivo.csv")
