@@ -43,12 +43,11 @@ def Create_Graficas (archivo_csv):
 
     #ventas por fecha
     
-    Precios_float = datos_csv["Precio"].str.replace("$", "").astype('float')
+    Precios_float = datos_csv["Precio"].str.replace("$", "", regex=False).astype('float')
     datos_csv["Precio"] = Precios_float
-    fecha_formateada = pd.to_datetime(datos_csv["Fecha"], format='%d/%m/%y', errors='cocerce')
+    fecha_formateada = pd.to_datetime(datos_csv["Fecha"], dayfirst=True,  errors='coerce')
     datos_csv["Fecha"] = fecha_formateada
 
-    agrupando = datos_csv.groupby('')
     ventas_fecha = {
         "Nombre Producto": datos_csv["Nombre Producto"],
         "Precio":datos_csv["Precio"],
@@ -56,6 +55,16 @@ def Create_Graficas (archivo_csv):
     }
 
     TablaVentas_fecha = pd.DataFrame(ventas_fecha)
+
+    agrupando_TablaVentas_Fecha = TablaVentas_fecha.groupby(['Fecha', 'Nombre Producto'])['Precio'].sum().reset_index()
+    
+    try:
+        Grafica_Lineas = px.line(agrupando_TablaVentas_Fecha, x='Fecha', y='Precio', color='Nombre Producto', title='Ventas por Fecha y Producto')
+
+        Grafica_Lineas.show()
+        return Grafica_Lineas
+    except Exception as e:
+        print(f"Hubo un error al crear la grafica de lineas: {e}")
     
     
 Create_Graficas("archivo.csv")
