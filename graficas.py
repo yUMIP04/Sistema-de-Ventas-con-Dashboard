@@ -20,51 +20,65 @@ def Create_Graficas (archivo_csv):
 
         #ventas por producto
 
-    ventas = datos_csv["Cantidad Vendida"].str.replace("vendidos", "").str.replace("vendidas", "").str.replace("productos", "").str.replace("cantidad", "")
+        ventas = datos_csv["Cantidad Vendida"].str.lower().str.replace("vendidos", "").str.replace("vendidas", "").str.replace("productos", "").str.replace("cantidad", "").str.strip()
 
-    ventas_int = ventas.astype('int')
-    datos_csv["Cantidad Vendida"] = ventas_int
+        ventas_int = ventas.astype('int')
+        datos_csv["Cantidad Vendida"] = ventas_int
         
-    ventas_producto = {
+        ventas_producto = {
             "Nombre Producto" : datos_csv["Nombre Producto"],
             "Cantidad Vendida": datos_csv["Cantidad Vendida"]
         }
 
-    Tabla_ventasProducto = pd.DataFrame(ventas_producto)
+        Tabla_ventasProducto = pd.DataFrame(ventas_producto)
 
-    try:
-        Grafica_Barras = px.bar(Tabla_ventasProducto, x="Nombre Producto", y="Cantidad Vendida", title="Ventas por producto")
-        #Grafica_Barras.show()
-
-        #return Grafica_Barras
+        try:
+           Grafica_Barras = px.bar(Tabla_ventasProducto, x="Nombre Producto", y="Cantidad Vendida", title="Ventas por producto")
     
-    except Exception as e:
-        print(f"Hubo un error al Generar la grafica de barras: {e}")
+        except Exception as e:
+           print(f"Hubo un error al Generar la grafica de barras: {e}")
 
     #ventas por fecha
     
-    Precios_float = datos_csv["Precio"].str.replace("$", "", regex=False).astype('float')
-    datos_csv["Precio"] = Precios_float
-    fecha_formateada = pd.to_datetime(datos_csv["Fecha"], dayfirst=True,  errors='coerce')
-    datos_csv["Fecha"] = fecha_formateada
+        Precios_float = datos_csv["Precio"].str.replace("$", "", regex=False).str.replace(",", "", regex=False).str.strip().astype('float')
+        datos_csv["Precio"] = Precios_float
+        fecha_formateada = pd.to_datetime(datos_csv["Fecha"], dayfirst=True,  errors='coerce')
+        datos_csv["Fecha"] = fecha_formateada
 
-    ventas_fecha = {
+        ventas_fecha = {
         "Nombre Producto": datos_csv["Nombre Producto"],
         "Precio":datos_csv["Precio"],
         "Fecha": datos_csv["Fecha"]
     }
 
-    TablaVentas_fecha = pd.DataFrame(ventas_fecha)
+        TablaVentas_fecha = pd.DataFrame(ventas_fecha)
 
-    agrupando_TablaVentas_Fecha = TablaVentas_fecha.groupby(['Fecha', 'Nombre Producto'])['Precio'].sum().reset_index()
+        agrupando_TablaVentas_Fecha = TablaVentas_fecha.groupby(['Fecha', 'Nombre Producto'])['Precio'].sum().reset_index()
     
-    try:
-        Grafica_Lineas = px.line(agrupando_TablaVentas_Fecha, x='Fecha', y='Precio', color='Nombre Producto', title='Ventas por Fecha y Producto')
+        try:
+           Grafica_Lineas = px.line(agrupando_TablaVentas_Fecha, x='Fecha', y='Precio', color='Nombre Producto', title='Ventas por Fecha y Producto')
+        except Exception as e:
+            print(f"Hubo un error al crear la grafica de lineas: {e}")
+    
+    #distribucion por categoria
 
+        distribucion_categoria ={
+        "Categoria": datos_csv["Categoria"],
+        "Nombre Producto":datos_csv["Nombre Producto"],
+        "Precio": datos_csv["Precio"],
+        "Cantidad Vendida": datos_csv["Cantidad Vendida"],
+        "Ingresos Totales": datos_csv["Precio"] * datos_csv["Cantidad Vendida"]
+    }
+
+        Tabla_Distribucion_Categoria = pd.DataFrame(distribucion_categoria)
+
+        resultado_DistribucionCategoria = Tabla_Distribucion_Categoria.groupby('Categoria')["Ingresos Totales"].sum().reset_index()
+
+        Grafica_Pastel = px.pie(resultado_DistribucionCategoria, values="Ingresos Totales", names="Categoria", title="Distribucion por Categoria")
+
+        Grafica_Barras.show()
         Grafica_Lineas.show()
-        return Grafica_Lineas
-    except Exception as e:
-        print(f"Hubo un error al crear la grafica de lineas: {e}")
-    
+        Grafica_Pastel.show()
+        return Grafica_Pastel, Grafica_Lineas, Grafica_Barras
     
 Create_Graficas("archivo.csv")
