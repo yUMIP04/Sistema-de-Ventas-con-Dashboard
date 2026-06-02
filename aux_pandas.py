@@ -2,8 +2,7 @@ import pandas as pd
 import os
 import datetime
 
-def ProcesamientoDatos_CSV(archivo_csv):
-    ruta_csv = f'static/uploads/CSV/{archivo_csv}'
+def ProcesamientoDatos_CSV(ruta_csv):
 
     try:
         if os.path.exists(ruta_csv):
@@ -40,9 +39,10 @@ def ProcesamientoDatos_CSV(archivo_csv):
                    #total ventas
                    csv["Total Ventas"] = csv["Cantidad Vendida"].mul(csv["Precio"])
                    total_ventas_dinero = csv["Total Ventas"].sum()
+                   
 
                    print(f"El total de ventas en dinero es $ {total_ventas_dinero } ")
-
+                   
                    #total productos vendidos
 
                    totalProductos_vendidos = csv["Cantidad Vendida"].sum()
@@ -57,10 +57,16 @@ def ProcesamientoDatos_CSV(archivo_csv):
 
                    #producto mas vendido
 
-                   producto_vendidoMax = csv.groupby(["Nombre Producto", "Categoria", "Precio", "Fecha"])["Cantidad Vendida"].max().reset_index()
+                   producto_vendidoMax = csv.groupby(["Nombre Producto", "Categoria", "Precio", "Fecha", "Total Ventas"])["Cantidad Vendida"].max().reset_index()
 
-                   print(producto_vendidoMax)
 
+                   #Categoria con mas ingresos
+
+                   agrupando_categorias = csv.groupby('Categoria')["Precio"].sum().sort_values(ascending=False)
+                   print(agrupando_categorias)
+
+                   return csv, total_ventas_dinero, totalProductos_vendidos,ticket_promedio, producto_vendidoMax, agrupando_categorias
+                   
         else:
             print("❌ No se encontro ningun archivo csv.")
             return None
@@ -69,4 +75,3 @@ def ProcesamientoDatos_CSV(archivo_csv):
         print(f"Hubo un error al encontrar el archivo: {e}")
         return None
 
-ProcesamientoDatos_CSV("archivo.csv")

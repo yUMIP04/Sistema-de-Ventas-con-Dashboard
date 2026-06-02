@@ -4,15 +4,14 @@ import os
 
 def Create_Graficas (archivo_csv, filtro_fecha_inicio = None, filtro_fecha_fin = None, filtro_categoria = None, filtro_producto = None):
 
-    ruta = f'static/uploads/CSV/{archivo_csv}'
 
-    if not os.path.exists(ruta):
+    if not os.path.exists(archivo_csv):
         print("❌ El archivo no existe")
         return None
 
     #LIMPIANDO ARCHIVOS CSV
 
-    datos_csv = pd.read_csv(ruta)
+    datos_csv = pd.read_csv(archivo_csv)
 
     
     ventas = datos_csv["Cantidad Vendida"].astype(str).str.lower().str.replace("vendidos", "").str.replace("vendidas", "").str.replace("productos", "").str.replace("cantidad", "").str.strip()
@@ -73,4 +72,3 @@ def Create_Graficas (archivo_csv, filtro_fecha_inicio = None, filtro_fecha_fin =
     
     return Grafica_Pastel, Grafica_Lineas, Grafica_Barras
 
-Create_Graficas("archivo.csv")

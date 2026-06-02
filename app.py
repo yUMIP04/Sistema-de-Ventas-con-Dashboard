@@ -3,6 +3,9 @@ from database import Create_DB, Create_Tables, insert_user, loguear_user, insert
 from werkzeug.security import generate_password_hash, check_password_hash
 from dotenv import load_dotenv
 import os 
+from aux_pandas import ProcesamientoDatos_CSV
+from graficas import Create_Graficas
+
 app = Flask(__name__)
 app.secret_key = os.getenv("SECRET_KEY")
 
@@ -75,10 +78,11 @@ def Inicio_dashboard():
 
            archivo_csv.save(ruta_final)
            insert_csv(archivo_csv.filename)
-           
 
            print("🌟 Archivo insertado correctamente")
 
+           ProcesamientoDatos_CSV(ruta_final)
+           Create_Graficas(ruta_final)
        else:
            print("❌ El usuario envio el formulario pero no selecciono ningun archivo")
     
