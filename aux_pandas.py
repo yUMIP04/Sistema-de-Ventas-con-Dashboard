@@ -57,6 +57,10 @@ def ProcesamientoDatos_CSV(archivo_csv):
 
                    #producto mas vendido
 
+                   producto_vendidoMax = csv.groupby(["Nombre Producto", "Categoria", "Precio", "Fecha"])["Cantidad Vendida"].max().reset_index()
+
+                   print(producto_vendidoMax)
+
         else:
             print("❌ No se encontro ningun archivo csv.")
             return None
