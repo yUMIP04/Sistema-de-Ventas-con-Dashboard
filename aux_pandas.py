@@ -35,12 +35,28 @@ def ProcesamientoDatos_CSV(archivo_csv):
                    csv["Fecha"] = fecha_formateada
                    
 
-                   #Calculos
+                   #🌟Calculos
 
+                   #total ventas
                    csv["Total Ventas"] = csv["Cantidad Vendida"].mul(csv["Precio"])
                    total_ventas_dinero = csv["Total Ventas"].sum()
 
-                   print(f"El total de ventas en dinero es $ {total_ventas_dinero } ")           
+                   print(f"El total de ventas en dinero es $ {total_ventas_dinero } ")
+
+                   #total productos vendidos
+
+                   totalProductos_vendidos = csv["Cantidad Vendida"].sum()
+
+                   print(totalProductos_vendidos)  
+
+                   #promedio de ventas
+                    
+                   ticket_promedio = csv["Total Ventas"].mean()
+
+                   print(f"El promedio de ventas {ticket_promedio}")
+
+                   #producto mas vendido
+
         else:
             print("❌ No se encontro ningun archivo csv.")
             return None
