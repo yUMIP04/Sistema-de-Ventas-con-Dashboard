@@ -63,6 +63,10 @@ def inicio_sesion():
 
 def Inicio_dashboard():
 
+    graf_pastel = ""
+    graf_lineas = ""
+    graf_barras = "" 
+    
     if request.method == 'POST':
 
        archivo_csv = request.files['file-csv']
@@ -82,11 +86,13 @@ def Inicio_dashboard():
            print("🌟 Archivo insertado correctamente")
 
            ProcesamientoDatos_CSV(ruta_final)
-           Create_Graficas(ruta_final)
+           graf_pastel, graf_lineas, graf_barras = Create_Graficas(ruta_final)
+
+           
        else:
            print("❌ El usuario envio el formulario pero no selecciono ningun archivo")
     
-    return render_template('Inicio.html')
+    return render_template('Inicio.html', pastel=graf_pastel, lineas=graf_lineas, barras=graf_barras)
 
 
 #🌟BASE
