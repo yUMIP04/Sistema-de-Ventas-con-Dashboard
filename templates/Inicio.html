@@ -28,6 +28,30 @@
 
 </div>
 
+<div class="Filtros">
+
+    <form action="/Inicio" method="POST">
+    <div class="filtro-fecha">
+<input type="date" id="filtro_fecha_inicio" name="filtro_fecha_inicio" value="{{filtro_fecha_inicio}}">
+<input type="date" id="filtro_fecha_fin" name="filtro_fecha_fin"  value="{{filtro_fecha_fin}}">
+    </div>
+
+    <div class="filtro-categoria">
+        <input type="text" id="filtro_categoria" name="filtro_categoria" placeholder="Buscar por categoria"  value="{{filtro_categorias}}">
+    </div>
+
+    
+    <div class="filtro-producto">
+        <input type="text" id="filtro_producto" name="filtro_producto" placeholder="Buscar por producto"  value="{{filtro_producto}}">
+    </div>
+
+    <div class="boton-buscar">
+        <input type="submit" value="Buscar" name="btn-buscar">
+    </div>
+
+    </form>
+
+</div>
 
 <div style="background: white; margin-bottom: 20px; padding: 15px; border-radius: 8px;">
         {{ barras | safe }}
@@ -39,4 +63,5 @@
 
     <div style="background: white; margin-bottom: 20px; padding: 15px; border-radius: 8px; max-width: 600px;">
         {{ pastel | safe }}
+        </div>
 {% endblock %}

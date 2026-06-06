@@ -26,6 +26,12 @@ def Create_Graficas (archivo_csv, filtro_fecha_inicio = None, filtro_fecha_fin =
     
     datos_csv["Ingresos Totales"] = datos_csv["Precio"] * datos_csv["Cantidad Vendida"]
 
+    datos_csv["Nombre Producto"] = datos_csv["Nombre Producto"].str.lower().str.strip()
+
+    datos_csv["Categoria"] = datos_csv["Categoria"].str.lower().str.strip()
+    
+    
+
 
    #FILTROS
 
@@ -79,6 +85,5 @@ def Create_Graficas (archivo_csv, filtro_fecha_inicio = None, filtro_fecha_fin =
     
    
     
-
     return div_pastel, div_lineas, div_barras
 

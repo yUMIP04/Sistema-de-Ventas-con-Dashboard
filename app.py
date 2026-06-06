@@ -63,6 +63,10 @@ def inicio_sesion():
 
 def Inicio_dashboard():
 
+    filtro_fecha_inicio = ""
+    filtro_fecha_fin = ""
+    filtro_producto = ""
+    filtro_categoria = ""
     graf_pastel = ""
     graf_lineas = ""
     graf_barras = "" 
@@ -70,6 +74,10 @@ def Inicio_dashboard():
     if request.method == 'POST':
 
        archivo_csv = request.files['file-csv']
+       filtro_fecha_inicio = request.form['filtro_fecha_inicio']
+       filtro_fecha_fin = request.form['filtro_fecha_fin']
+       filtro_producto = request.form['filtro_producto']
+       filtro_categoria = request.form['filtro_categoria']
 
        if archivo_csv and archivo_csv.filename != '':
            
@@ -86,13 +94,13 @@ def Inicio_dashboard():
            print("🌟 Archivo insertado correctamente")
 
            ProcesamientoDatos_CSV(ruta_final)
-           graf_pastel, graf_lineas, graf_barras = Create_Graficas(ruta_final)
+           graf_pastel, graf_lineas, graf_barras = Create_Graficas(ruta_final, filtro_fecha_inicio, filtro_fecha_fin, filtro_categoria, filtro_producto)
 
            
        else:
            print("❌ El usuario envio el formulario pero no selecciono ningun archivo")
     
-    return render_template('Inicio.html', pastel=graf_pastel, lineas=graf_lineas, barras=graf_barras)
+    return render_template('Inicio.html', pastel=graf_pastel, lineas=graf_lineas, barras=graf_barras, filtro_fecha_inicio=filtro_fecha_inicio, filtro_fecha_fin = filtro_fecha_fin, filtro_categorias=filtro_categoria, filtro_producto=filtro_producto)
 
 
 #🌟BASE
