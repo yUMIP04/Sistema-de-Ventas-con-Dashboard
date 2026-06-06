@@ -2,6 +2,9 @@ import pandas as pd
 import os
 import datetime
 
+archivo = "archivo.csv"
+ruta = os.path.join('static', 'uploads', 'CSV')
+ruta_final = os.path.join(ruta, archivo)
 def ProcesamientoDatos_CSV(ruta_csv):
 
     try:
@@ -62,9 +65,13 @@ def ProcesamientoDatos_CSV(ruta_csv):
 
                    #Categoria con mas ingresos
 
-                   agrupando_categorias = csv.groupby('Categoria')["Precio"].sum().sort_values(ascending=False)
+                   agrupando_categorias = csv.groupby('Categoria')["Precio"].sum().sort_values(ascending=False).reset_index()
+                  
                    print(agrupando_categorias)
 
+                   Categoria_Max = agrupando_categorias[agrupando_categorias["Precio"] > 80.0]["Categoria"]
+                   categoria_str = str(Categoria_Max)
+                   print(categoria_str)
                    return csv, total_ventas_dinero, totalProductos_vendidos,ticket_promedio, producto_vendidoMax, agrupando_categorias
                    
         else:
@@ -75,3 +82,4 @@ def ProcesamientoDatos_CSV(ruta_csv):
         print(f"Hubo un error al encontrar el archivo: {e}")
         return None
 
+ProcesamientoDatos_CSV(ruta_final)

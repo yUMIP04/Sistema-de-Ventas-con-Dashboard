@@ -70,7 +70,13 @@ def Inicio_dashboard():
     graf_pastel = ""
     graf_lineas = ""
     graf_barras = "" 
-    
+
+    total_ventas_dinero = ""
+    total_productos_vendidos = ""
+    ticket_promedio = ""
+    producto_vendidosMax = ""
+    categoria_MaxIngresos = ""
+
     archivo_actual = session.get('archivo_actual', '')
 
     if request.method == 'POST':
@@ -85,6 +91,7 @@ def Inicio_dashboard():
             if archivo_actual:
                 carpeta_csv = os.path.join(app.root_path, 'static', 'uploads', 'CSV')
                 ruta_final = os.path.join(carpeta_csv, archivo_actual)
+
 
                 graf_pastel, graf_lineas, graf_barras = Create_Graficas(ruta_final, filtro_fecha_inicio, filtro_fecha_fin, filtro_categoria, filtro_producto)
 
