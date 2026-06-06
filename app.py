@@ -71,34 +71,50 @@ def Inicio_dashboard():
     graf_lineas = ""
     graf_barras = "" 
     
+    archivo_actual = session.get('archivo_actual', '')
+
     if request.method == 'POST':
 
-       archivo_csv = request.files['file-csv']
-       filtro_fecha_inicio = request.form['filtro_fecha_inicio']
-       filtro_fecha_fin = request.form['filtro_fecha_fin']
-       filtro_producto = request.form['filtro_producto']
-       filtro_categoria = request.form['filtro_categoria']
+        if 'btn-buscar' in request.form:
 
-       if archivo_csv and archivo_csv.filename != '':
-           
-           carpeta_csv = os.path.join(app.root_path, 'static', 'uploads', 'CSV')
-           if not os.path.exists(carpeta_csv):
-               
-               os.makedirs(carpeta_csv)
+            filtro_fecha_inicio = request.form.get('filtro_fecha_inicio')
+            filtro_fecha_fin = request.form.get('filtro_fecha_fin')
+            filtro_producto = request.form.get('filtro_producto').lower()
+            filtro_categoria = request.form.get('filtro_categoria').lower()
 
-           ruta_final = os.path.join(carpeta_csv, archivo_csv.filename)
+            if archivo_actual:
+                carpeta_csv = os.path.join(app.root_path, 'static', 'uploads', 'CSV')
+                ruta_final = os.path.join(carpeta_csv, archivo_actual)
 
-           archivo_csv.save(ruta_final)
-           insert_csv(archivo_csv.filename)
+                graf_pastel, graf_lineas, graf_barras = Create_Graficas(ruta_final, filtro_fecha_inicio, filtro_fecha_fin, filtro_categoria, filtro_producto)
 
-           print("🌟 Archivo insertado correctamente")
+            else:
+                print("Intentaste filtrar pero no se ha subido algun archivo CSV todavia")
+        
+        elif 'file-csv' in request.files:
 
-           ProcesamientoDatos_CSV(ruta_final)
-           graf_pastel, graf_lineas, graf_barras = Create_Graficas(ruta_final, filtro_fecha_inicio, filtro_fecha_fin, filtro_categoria, filtro_producto)
+            archivo_csv = request.files['file-csv']
 
-           
-       else:
-           print("❌ El usuario envio el formulario pero no selecciono ningun archivo")
+            if archivo_csv and archivo_csv.filename != '':
+
+                carpeta_csv = os.path.join(app.root_path, 'static', 'uploads', 'CSV')
+
+                if not os.path.exists(carpeta_csv):
+
+                    os.makedirs(carpeta_csv)
+
+                ruta_final = os.path.join(carpeta_csv, archivo_csv.filename)
+                archivo_csv.save(ruta_final)
+                insert_csv(archivo_csv.filename)
+
+                session['archivo_actual'] = archivo_csv.filename
+
+                ProcesamientoDatos_CSV(ruta_final)
+
+                graf_pastel, graf_lineas, graf_barras = Create_Graficas(ruta_final, filtro_fecha_inicio, filtro_fecha_fin, filtro_categoria)
+
+            else:
+                print("Formulario enviado pero sin archivo seleccionados")
     
     return render_template('Inicio.html', pastel=graf_pastel, lineas=graf_lineas, barras=graf_barras, filtro_fecha_inicio=filtro_fecha_inicio, filtro_fecha_fin = filtro_fecha_fin, filtro_categorias=filtro_categoria, filtro_producto=filtro_producto)
 
