@@ -71,10 +71,9 @@ def Inicio_dashboard():
     graf_lineas = ""
     graf_barras = "" 
 
-    total_ventas_dinero = ""
-    total_productos_vendidos = ""
-    ticket_promedio = ""
-    producto_vendidosMax = ""
+    total_ventas_dinero = 0.0
+    total_productos_vendidos = 0
+    ticket_promedio = 0.0
     categoria_MaxIngresos = ""
 
     archivo_actual = session.get('archivo_actual', '')
@@ -116,14 +115,19 @@ def Inicio_dashboard():
 
                 session['archivo_actual'] = archivo_csv.filename
 
-                ProcesamientoDatos_CSV(ruta_final)
+                total_ventas_dinero, total_productos_vendidos, ticket_promedio, categoria_MaxIngresos = ProcesamientoDatos_CSV(ruta_final)
 
+                promedio_float = float(ticket_promedio)
                 graf_pastel, graf_lineas, graf_barras = Create_Graficas(ruta_final, filtro_fecha_inicio, filtro_fecha_fin, filtro_categoria)
 
+                
             else:
                 print("Formulario enviado pero sin archivo seleccionados")
     
-    return render_template('Inicio.html', pastel=graf_pastel, lineas=graf_lineas, barras=graf_barras, filtro_fecha_inicio=filtro_fecha_inicio, filtro_fecha_fin = filtro_fecha_fin, filtro_categorias=filtro_categoria, filtro_producto=filtro_producto)
+    return render_template('Inicio.html', totalVentas = total_ventas_dinero, totalProductosVendidos = total_productos_vendidos,
+                           promedioVentas = ticket_promedio, categoriaMax = categoria_MaxIngresos, 
+                           pastel=graf_pastel, lineas=graf_lineas, barras=graf_barras, filtro_fecha_inicio=filtro_fecha_inicio, 
+                           filtro_fecha_fin = filtro_fecha_fin, filtro_categorias=filtro_categoria, filtro_producto=filtro_producto)
 
 
 #🌟BASE

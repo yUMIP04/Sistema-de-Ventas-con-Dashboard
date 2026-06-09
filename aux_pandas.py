@@ -5,6 +5,7 @@ import datetime
 archivo = "archivo.csv"
 ruta = os.path.join('static', 'uploads', 'CSV')
 ruta_final = os.path.join(ruta, archivo)
+
 def ProcesamientoDatos_CSV(ruta_csv):
 
     try:
@@ -69,10 +70,10 @@ def ProcesamientoDatos_CSV(ruta_csv):
                   
                    print(agrupando_categorias)
 
-                   Categoria_Max = agrupando_categorias[agrupando_categorias["Precio"] > 80.0]["Categoria"]
-                   categoria_str = str(Categoria_Max)
+                   Categoria_Max = agrupando_categorias[agrupando_categorias["Precio"] > 80.0]["Categoria"].to_list()
+                   categoria_str = ",".join(Categoria_Max)
                    print(categoria_str)
-                   return csv, total_ventas_dinero, totalProductos_vendidos,ticket_promedio, producto_vendidoMax, agrupando_categorias
+                   return  total_ventas_dinero, totalProductos_vendidos,ticket_promedio,  categoria_str
                    
         else:
             print("❌ No se encontro ningun archivo csv.")
