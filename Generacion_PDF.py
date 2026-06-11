@@ -1,16 +1,23 @@
-from reportlab.pdfgen import canvas
+from reportlab.lib.pagesizes import letter
+from reportlab.platypus import SimpleDocTemplate, Paragraph
+from reportlab.lib.styles import getSampleStyleSheet
 import os
 
-ruta = os.path.join(f'static', 'uploads', 'PDFS')
+def Generar_PDF(nombre_archivo):
 
+    ruta = os.path.join('static', 'uploads', 'PDFS')
 
+    if not os.path.exists(ruta):
+        
+        print("No existe la ruta ¡Estoy por crearla!")
+        os.makedirs(ruta)
 
-def generar_PDF(archivo, nombre_archivo):
+    else:
 
-    archivo.drawString(100, 100, "Resultados:")
+        print("¡Si existe la ruta!")
+        ruta_final = os.path.join(ruta, nombre_archivo)
+        print("Redirigiendo a la ruta: ", ruta_final)
 
-archivo = canvas.Canvas(f"{nombre_archivo}.pdf")
+        
 
-generar_PDF(archivo)
-archivo.showPage()
-archivo.save()
+Generar_PDF("Prueba.pdf")
