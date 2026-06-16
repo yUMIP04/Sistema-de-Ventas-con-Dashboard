@@ -52,12 +52,21 @@ def Create_Graficas (archivo_csv, filtro_fecha_inicio = None, filtro_fecha_fin =
     div_barras = ""
     div_lineas = ""
     div_pastel = ""
+
+    os.makedirs('static/uploads/IMG_Graficas', exist_ok=True)
+    nombre_limpio_csv = os.path.basename(archivo_csv)
+
     #Grafica de Barras
     try:
       
         tabla_barras = datos_csv.groupby("Nombre Producto")["Cantidad Vendida"].sum().reset_index()
         Grafica_Barras = px.bar(tabla_barras, x="Nombre Producto", y="Cantidad Vendida", title="Ventas por producto")
+
+        Grafica_Barras.update_layout(width=600, height=350)
+        Grafica_Barras.write_image(f"static/uploads/IMG_Graficas/grafica_Barras_{nombre_limpio_csv}.png", engine="kaleido")
+
         div_barras =   Grafica_Barras.to_html(full_html = False, include_plotlyjs="cdn")
+
     except Exception as e:
         print(f"Hubo un error al Generar la grafica de barras: {e}")
 
@@ -65,6 +74,10 @@ def Create_Graficas (archivo_csv, filtro_fecha_inicio = None, filtro_fecha_fin =
     try:
         tabla_lineas = datos_csv.groupby(['Fecha', 'Nombre Producto'])['Precio'].sum().reset_index()
         Grafica_Lineas = px.line(tabla_lineas, x='Fecha', y='Precio', color='Nombre Producto', title='Ventas por Fecha y Producto')
+
+        Grafica_Lineas.update_layout(width=600, height=350)
+        Grafica_Lineas.write_image(f"static/uploads/IMG_Graficas/grafica_Lineas_{nombre_limpio_csv}.png", engine="kaleido")
+
         div_lineas = Grafica_Lineas.to_html(full_html = False, include_plotlyjs=False)
     except Exception as e:
         print(f"Hubo un error al crear la grafica de lineas: {e}")
@@ -73,17 +86,13 @@ def Create_Graficas (archivo_csv, filtro_fecha_inicio = None, filtro_fecha_fin =
     try:
         tabla_pastel = datos_csv.groupby('Categoria')["Ingresos Totales"].sum().reset_index()
         Grafica_Pastel = px.pie(tabla_pastel, values="Ingresos Totales", names="Categoria", title="Distribucion por Categoria")
+
+        Grafica_Pastel.update_layout(width=600, height=350)
+        Grafica_Pastel.write_image(f"static/uploads/IMG_Graficas/grafica_Pastel_{nombre_limpio_csv}.png", engine="kaleido")
+
         div_pastel = Grafica_Pastel.to_html(full_html=False, include_plotlyjs=False)
     except Exception as e:
         print(f"Hubo un error al crear la grafica de pastel: {e}")
+    
 
-    #Creacion de graficas
-    #Grafica_Barras.show()
-    #Grafica_Lineas.show()
-    #Grafica_Pastel.show()
-    
-    
-   
-    
     return div_pastel, div_lineas, div_barras
-
