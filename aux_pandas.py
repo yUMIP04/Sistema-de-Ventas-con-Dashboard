@@ -30,7 +30,7 @@ def ProcesamientoDatos_CSV(ruta_csv):
                    print("👌 El archivo tiene las columnas obligatorias")
 
                    precio_formateado = csv["Precio"].str.lower().str.replace("$", "").str.replace("pesos", "").astype('float')
-                   cantidad_formateada = csv["Cantidad Vendida"].str.lower().str.replace("vendidos", "").str.replace("vendidas", "").str.replace("vendido", "").str.replace("vendida", "").astype('int')
+                   cantidad_formateada = csv["Cantidad Vendida"].str.lower().str.replace("vendidos", "").str.replace("vendidas", "").str.replace("vendido", "").str.replace("vendida", "").str.replace("productos", "").str.replace("producto", "").astype('int')
                    fecha_formateada = pd.to_datetime(csv["Fecha"], format='%d/%m/%Y', errors='raise')
 
                    csv["Precio"] = precio_formateado
