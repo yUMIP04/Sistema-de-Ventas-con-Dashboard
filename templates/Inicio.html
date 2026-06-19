@@ -71,4 +71,11 @@
     <div style="background: white; margin-bottom: 20px; padding: 15px; border-radius: 8px; max-width: 600px;">
         {{ pastel | safe }}
         </div>
+
+        <div class="btn-generar">
+           
+            <form action="/Inicio" method="POST"enctype="multipart/form-data" >
+                <button type="submit" name="generar-pdf">Generar PDF</button>
+            </form>
+        </div>
 {% endblock %}

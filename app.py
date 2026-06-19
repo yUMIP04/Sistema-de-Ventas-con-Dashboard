@@ -3,8 +3,10 @@ from database import Create_DB, Create_Tables, insert_user, loguear_user, insert
 from werkzeug.security import generate_password_hash, check_password_hash
 from dotenv import load_dotenv
 import os 
+import datetime
 from aux_pandas import ProcesamientoDatos_CSV
 from graficas import Create_Graficas
+from Generacion_PDF import Generar_PDF
 
 app = Flask(__name__)
 app.secret_key = os.getenv("SECRET_KEY")
@@ -117,13 +119,36 @@ def Inicio_dashboard():
 
                 total_ventas_dinero, total_productos_vendidos, ticket_promedio, categoria_MaxIngresos = ProcesamientoDatos_CSV(ruta_final)
 
+                session['total_ventas_dinero'] = float(total_ventas_dinero)
+                session['total_productos_vendidos'] = int(total_productos_vendidos)
+                session['ticket_promedio'] = float(ticket_promedio)
+                session['categoria_MaxIngresos'] = str(categoria_MaxIngresos)
+
                 promedio_float = float(ticket_promedio)
+
                 graf_pastel, graf_lineas, graf_barras = Create_Graficas(ruta_final, filtro_fecha_inicio, filtro_fecha_fin, filtro_categoria)
-                
-                
+
             else:
                 print("Formulario enviado pero sin archivo seleccionados")
-    
+
+        elif 'generar-pdf' in request.form:
+
+            if archivo_actual:
+
+                nombre_limpio = os.path.splitext(archivo_actual)[0]
+                nombre_pdf = f"Reporte_{nombre_limpio}.pdf"
+
+                fecha_resultados = datetime.datetime.now().strftime('%A' + " " + '%B' + " " + '%Y')
+
+                total_ventas_dinero = session.get('total_ventas_dinero', 0.0)
+                total_productos_vendidos = session.get('total_productos_vendidos', 0.0)
+                ticket_promedio = session.get('ticket_promedio', 0.0)
+
+                pdf_descarga = Generar_PDF(nombre_pdf, archivo_actual, fecha_resultados,total_ventas_dinero, total_productos_vendidos,ticket_promedio)
+
+                if pdf_descarga:
+                    return pdf_descarga
+                
     return render_template('Inicio.html', totalVentas = total_ventas_dinero, totalProductosVendidos = total_productos_vendidos,
                            promedioVentas = ticket_promedio, categoriaMax = categoria_MaxIngresos, 
                            pastel=graf_pastel, lineas=graf_lineas, barras=graf_barras, filtro_fecha_inicio=filtro_fecha_inicio, 
