@@ -178,11 +178,17 @@ def Base():
 #🌟CERRAR SESION
 
 @app.route('/logout')
+@token_required
+
 def logout():
 
-    session.pop('nombre_usuario', None)
+    respuesta = redirect(url_for('inicio_sesion'))
 
-    return redirect(url_for('inicio_sesion'))
+    respuesta.delete_cookie('token')
+
+    session.clear()
+
+    return respuesta
 
 if __name__ == ('__main__'):
     app.run(debug=True)
