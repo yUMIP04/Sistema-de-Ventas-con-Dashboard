@@ -95,7 +95,7 @@ def loguear_user(nombre):
     cursor = conexion.cursor()
     
     try:
-        cursor.execute("SELECT clave FROM Usuarios WHERE nombre_usuario = ?",(nombre,))
+        cursor.execute("SELECT id_usuario, nombre_usuario, clave FROM Usuarios WHERE nombre_usuario = ?",(nombre,))
         
         resultado = cursor.fetchone()
 

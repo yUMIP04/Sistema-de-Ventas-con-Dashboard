@@ -1,15 +1,20 @@
-from flask import Flask,redirect,url_for,render_template, request,flash,session
-from database import Create_DB, Create_Tables, insert_user, loguear_user, insert_csv
+from flask import Flask,redirect,url_for,render_template, request,flash,session, jsonify
 from werkzeug.security import generate_password_hash, check_password_hash
 from dotenv import load_dotenv
 import os 
 import datetime
+import jwt
+
+from database import Create_DB, Create_Tables, insert_user, loguear_user, insert_csv
 from aux_pandas import ProcesamientoDatos_CSV
 from graficas import Create_Graficas
 from Generacion_PDF import Generar_PDF
+from middlewares.auth import token_required
+
 
 app = Flask(__name__)
 app.secret_key = os.getenv("SECRET_KEY")
+SecretKey_JWT = os.getenv("SECRET_KEYJWT")
 
 load_dotenv()
 Create_DB()
@@ -44,13 +49,16 @@ def inicio_sesion():
         loguear = loguear_user(nombre)
 
         if loguear is not None:
-            clave_hash = loguear[0]
+            clave_hash = loguear[2]
 
             if check_password_hash(clave_hash, clave_txt):
                 print("¡Inicio de sesión exitoso! Redirigiendo...")
 
                 session['nombre_usuario'] = nombre
-                return redirect(url_for('Inicio_dashboard'))
+
+                token = jwt.encode({"usuario_id": loguear[0], "Nombre_Usuario": loguear[1]},SecretKey_JWT, algorithm="HS256" )
+
+                return redirect(url_for('Inicio_dashboard', token=token))
             else:
                 print("Contraseña incorrecta para este usuario.")
         else:
@@ -61,7 +69,9 @@ def inicio_sesion():
 
 #🌟INICIO PAGINA
 
+
 @app.route('/Inicio', methods=['GET', 'POST'])
+@token_required
 
 def Inicio_dashboard():
 
@@ -158,6 +168,7 @@ def Inicio_dashboard():
 #🌟BASE
 
 @app.route('/Base')
+@token_required
 
 def Base():
 
