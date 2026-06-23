@@ -3,16 +3,18 @@
 
 {% block content %}
 
-<h1>Bienvenido al Analisis de Ventas</h1>
 
-<div class="contenedor">
+<body class="bg-[#FAFBF5]">
+<h1 class=" mt-6 font-['Roboto'] text-3xl font-semibold " >Bienvenido al Analisis de Ventas</h1>
+
+<div class="contenedor shadow-lg mt-6 bg-[#FFFFFF] w-120 h-40 rounded-md ">
 
 <div class="insert-file">
 
     <form enctype="multipart/form-data" action="/Inicio" method="POST">
-    <div class="csv-insert">
+    <div class="csv-insert ">
 
-    <p id="nombre-archivo" name="nombre-archivo"><strong>Inserta tu archivo CSV</strong></p>
+    <p id="nombre-archivo" name="nombre-archivo" class=" font-[Open Sans] font-light" ><strong>Inserta tu archivo CSV</strong></p>
     <input type="file" name="file-csv" id="file-csv" accept=".csv" hidden>
     <button type="button" id="btn-seleccionar" name="btn-seleccionar">Seleccionar Archivo</button>
     </div>
@@ -58,6 +60,7 @@
 
     </form>
 
+
 </div>
 
 <div style="background: white; margin-bottom: 20px; padding: 15px; border-radius: 8px;">
@@ -78,4 +81,6 @@
                 <button type="submit" name="generar-pdf">Generar PDF</button>
             </form>
         </div>
+
+</body>
 {% endblock %}

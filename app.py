@@ -129,6 +129,7 @@ def Inicio_dashboard():
 
                 total_ventas_dinero, total_productos_vendidos, ticket_promedio, categoria_MaxIngresos = ProcesamientoDatos_CSV(ruta_final)
 
+                
                 session['total_ventas_dinero'] = float(total_ventas_dinero)
                 session['total_productos_vendidos'] = int(total_productos_vendidos)
                 session['ticket_promedio'] = float(ticket_promedio)

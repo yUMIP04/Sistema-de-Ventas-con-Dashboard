@@ -4,8 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!--CSS-->
-    <link rel="stylesheet" href="static/base.css">
+    <!--TAILWINDCSS-->
+     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
     <!--FONTS-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -22,27 +23,27 @@
     <title>{%block title %} Base {% endblock %}</title>
 </head>
 <body>
-    <header class="barra-opciones">
-       
 
-        
-        <ul class="inicio">
-            <li><i class="bx bx-home-alt" /></i>Inicio</li>
+    <header class="flex flex-row-reverse items-center  bg-[#3B7597] h-13">
 
-           
-        </ul>
+        <div class="flex bg-[#FAFBF5] p-1 rounded-md cursor-pointer mr-8">
+         <p><i class="bx bx-user-circle" /></i>{{session['nombre_usuario']}}</p>
 
-        <div class="nombre-usuario">
-         <p><i class="bx bx-user-circle" /></i>{{ session['nombre_usuario'] }}</p>
+         <div class="btn-barra flex flex-row items-center  ">
+            <button class="btn-abrir cursor-pointer"><i class="bx bx-caret-big-left" /></i></button>
+         </div>
          </div>
          
-        <ul class="opciones" id="opciones" style="display: none;">
-            <li >Cerrar Sesion</li>
-        </ul>
     </header>
+ <div class="options float-end absolute right-8 top-10 bg-[#E8E6E3] p-1 rounded-sm hover:bg-[#D92E0B] hover:text-[#FAFBF5] transition-bg duration-300 ease-in-out" style="display: none;">
+            <ul>
+                <li><a class="cerrar-sesion" href="">Cerrar Sesion</a></li>
+            </ul>
+        </div>
     {% block content%} {%endblock%}
 
 </body>
 
+<script src="{{ url_for('static', filename='JS/base.js') }}"></script>
 <script src="{{ url_for('static', filename='JS/index.js') }}"></script>
 </html>
