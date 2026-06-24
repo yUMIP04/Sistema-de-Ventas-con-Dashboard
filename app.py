@@ -179,7 +179,7 @@ def Base():
 #🌟CERRAR SESION
 
 @app.route('/logout')
-@token_required
+
 
 def logout():
 

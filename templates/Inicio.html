@@ -40,7 +40,9 @@
 </div>
 
 
-<div class="resultado-procesamiento shadow-lg mt-6 bg-[#FFFFFF] w-120 h-40 rounded-md">
+<div class="resultados-filtros shadow-lg mt-6 mb-3 h-80 bg-[#FFFFFF] w-120 h-40 rounded-md">
+
+<div class="resultado-procesamiento ">
     <strong>Total de ventas: {{totalVentas}}</strong>
     <strong>Total de productos vendidos:{{totalProductosVendidos}}</strong>
     <strong>Promedio de ventas:{{"%.2f" | format( promedioVentas)}}</strong>
@@ -72,6 +74,8 @@
 
 
 </div>
+</div>
+
 
 <div style="background: white; margin-bottom: 20px; padding: 15px; border-radius: 8px;">
         {{ barras | safe }}
