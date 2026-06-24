@@ -7,30 +7,40 @@
 <body class="bg-[#FAFBF5]">
 <h1 class=" mt-6 font-['Roboto'] text-3xl font-semibold " >Bienvenido al Analisis de Ventas</h1>
 
-<div class="contenedor shadow-lg mt-6 bg-[#FFFFFF] w-120 h-40 rounded-md ">
+<div class="contenedor shadow-lg mt-6 bg-[#FFFFFF] w-120 h-40 rounded-md">
 
-<div class="insert-file">
+    <div class="insert-file flex">
 
-    <form enctype="multipart/form-data" action="/Inicio" method="POST">
-    <div class="csv-insert ">
+        <form enctype="multipart/form-data" action="/Inicio" method="POST">
+            <div class="csv-insert grid">
 
-    <p id="nombre-archivo" name="nombre-archivo" class=" font-[Open Sans] font-light" ><strong>Inserta tu archivo CSV</strong></p>
-    <input type="file" name="file-csv" id="file-csv" accept=".csv" hidden>
-    <button type="button" id="btn-seleccionar" name="btn-seleccionar">Seleccionar Archivo</button>
+                <p id="nombre-archivo" name="nombre-archivo" class="font-[Open Sans] font-light">
+                    <strong>Inserta tu archivo CSV</strong>
+                </p>
+                
+                <input type="file" name="file-csv" id="file-csv" accept=".csv" hidden>
+
+                <div class="mt-4 flex items-center gap-4">
+                    
+                    <div class="selecciona-archivo w-74 border-2 border-dashed border-[#3B7597] rounded-md">
+                        <button type="button" id="btn-seleccionar" class="m-3 p-1 border-1 border-solid border rounded-md bg-[#E8E6E3] hover:bg-[#ABA9A9] cursor-pointer transition-bg duration-100 ease-out" name="btn-seleccionar">
+                            Seleccionar Archivo
+                        </button>
+                    </div>
+                    
+                    <div class="ml-6 ">
+                        <input type="submit" id="btn-subir" value="Subir Archivo" class="cursor-pointer bg-[#3B7597] p-3 rounded-md text-[#FFFFFF] hover:bg-[#093C5D] transition-bg duration-100 ease-out ">
+                    </div>
+
+                </div> </div>
+        </form>
+
     </div>
-      <br>
-        <br>
-
-    <div>
-        <input type="submit" id="btn-subir" value="Subir Archivo">
-    </div>
-</form>
 
 </div>
 
-</div>
 
-<div class="resultado-procesamiento">
+<div class="resultado-procesamiento shadow-lg mt-6 bg-[#FFFFFF] w-120 h-40 rounded-md">
     <strong>Total de ventas: {{totalVentas}}</strong>
     <strong>Total de productos vendidos:{{totalProductosVendidos}}</strong>
     <strong>Promedio de ventas:{{"%.2f" | format( promedioVentas)}}</strong>
