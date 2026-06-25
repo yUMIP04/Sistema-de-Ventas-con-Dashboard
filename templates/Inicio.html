@@ -2,116 +2,129 @@
 {% block title %} Registro - Ventas {% endblock %}
 
 {% block content %}
+<div class="p-6 font-['Roboto'] max-w-[1600px] mx-auto">
 
+    <h1 class="text-2xl font-semibold text-gray-800 tracking-tight">Bienvenido al Análisis de Ventas</h1>
 
-<body class="bg-[#FAFBF5]">
-<h1 class=" mt-6 font-['Roboto'] text-3xl font-semibold " >Bienvenido al Analisis de Ventas</h1>
+    <div class="flex flex-col lg:flex-row gap-5 mt-5 lg:items-stretch items-start">
+        
+        <div class="w-full lg:w-[340px] flex flex-col gap-4 shrink-0">
+            
+            <div class="shadow-sm bg-white p-3.5 rounded-lg border border-gray-200">
+                <form enctype="multipart/form-data" action="/Inicio" method="POST">
+                    <div class="flex flex-col">
+                        <p id="nombre-archivo" name="nombre-archivo" class="font-[Open Sans] text-xs font-semibold mb-2">
+                            Inserta tu archivo CSV
+                        </p>
+                        
+                        <input type="file" name="file-csv" id="file-csv" accept=".csv" hidden>
 
-<div class="contenedor shadow-lg mt-6 bg-[#FFFFFF] w-120 h-40 rounded-md">
+                        <div class="flex items-center gap-2">
+                            <div class="flex-1 border-2 border-dashed border-[#3B7597] rounded-md flex justify-center bg-gray-50/50">
+                                <button type="button" id="btn-seleccionar" class="m-1.5 py-1 px-2.5 border rounded-md bg-[#E8E6E3] hover:bg-[#ABA9A9] cursor-pointer transition-colors text-[11px] font-medium" name="btn-seleccionar">
+                                    Seleccionar Archivo
+                                </button>
+                            </div>
+                            <div>
+                                <input type="submit" id="btn-subir" value="Subir" class="cursor-pointer bg-[#3B7597] py-2 px-3 rounded-md text-white hover:bg-[#093C5D] transition-colors text-[11px] font-semibold h-full">
+                            </div>
+                        </div> 
+                    </div>
+                </form>
 
-    <div class="insert-file flex">
+                <div class="mt-3 text-[11px] text-gray-500 leading-relaxed">
+                    <ul class="list-disc pl-4 space-y-0.5">
+                        <li>Debe tener de 5 a 10 filas</li>
+                        <li>Campos obligatorios: Nombre Producto, Precio, Cantidad Vendida y Fecha</li>
+                    </ul>
+                </div>
+            </div>
 
-        <form enctype="multipart/form-data" action="/Inicio" method="POST">
-            <div class="csv-insert grid">
-
-                <p id="nombre-archivo" name="nombre-archivo" class="font-[Open Sans] font-light">
-                    <strong>Inserta tu archivo CSV</strong>
-                </p>
+            <div class="shadow-sm bg-white p-3.5 rounded-lg border border-gray-200 flex flex-col gap-4 flex-1 justify-between">
                 
-                <input type="file" name="file-csv" id="file-csv" accept=".csv" hidden>
+                <div class="flex flex-col gap-4">
+                    <div class="grid grid-cols-2 gap-2 text-center">
+                        <div class="flex flex-col items-center justify-center bg-[#3B7597] p-2 text-white rounded-lg min-h-[70px]">
+                            <span class="flex items-center gap-1 text-[11px] opacity-90"><i class="bx bx-dollar-circle bg-white/25 p-1 rounded text-xs"></i> Total ventas</span>
+                            <strong class="font-semibold text-base mt-0.5">${{totalVentas}}</strong>
+                        </div>
 
-                <div class="mt-4 flex items-center gap-4">
-                    
-                    <div class="selecciona-archivo w-74 border-2 border-dashed border-[#3B7597] rounded-md">
-                        <button type="button" id="btn-seleccionar" class="m-3 p-1 border-1 border-solid border rounded-md bg-[#E8E6E3] hover:bg-[#ABA9A9] cursor-pointer transition-bg duration-100 ease-out" name="btn-seleccionar">
-                            Seleccionar Archivo
-                        </button>
+                        <div class="flex flex-col items-center justify-center bg-[#3B7597] p-2 text-white rounded-lg min-h-[70px]">
+                            <span class="flex items-center gap-1 text-[11px] opacity-90"><i class="bx bx-container bg-white/25 p-1 rounded text-xs"></i> Vendidos</span>
+                            <strong class="font-semibold text-base mt-0.5">{{totalProductosVendidos}}</strong>
+                        </div>
+
+                        <div class="flex flex-col items-center justify-center bg-[#3B7597] p-2 text-white rounded-lg min-h-[70px]">
+                            <span class="flex items-center gap-1 text-[11px] opacity-90"><i class="bx bx-piggy-bank bg-white/25 p-1 rounded text-xs"></i> Promedio</span>
+                            <strong class="font-semibold text-base mt-0.5">${{"%.2f" | format(promedioVentas)}}</strong>
+                        </div>
+
+                        <div class="flex flex-col items-center justify-center bg-[#3B7597] p-2 text-white rounded-lg min-h-[70px]">
+                            <span class="flex items-center gap-1 text-[11px] opacity-90"><i class="bx bx-categories bg-white/25 p-1 rounded text-xs"></i> Mayor ingreso</span>
+                            <strong class="font-semibold text-xs mt-0.5 truncate w-full px-1" title="{{categoriaMax}}">{{categoriaMax}}</strong>
+                        </div>
                     </div>
-                    
-                    <div class="ml-6 ">
-                        <input type="submit" id="btn-subir" value="Subir Archivo" class="cursor-pointer bg-[#3B7597] p-3 rounded-md text-[#FFFFFF] hover:bg-[#093C5D] transition-bg duration-100 ease-out ">
+
+                    <div class="p-3 bg-[#FAF9F6] rounded-lg border border-gray-200">
+                        <form action="/Inicio" method="POST" class="flex flex-col gap-3">
+                            
+                            <div class="flex flex-col gap-1">
+                                <h5 class="text-[10px] font-bold text-gray-500 uppercase tracking-wider">Filtrar por Fecha (Inicio / Fin)</h5>
+                                <div class="grid grid-cols-2 gap-2">
+                                    <input type="date" id="filtro_fecha_inicio" name="filtro_fecha_inicio" value="{{filtro_fecha_inicio}}" 
+                                           class="w-full bg-white border border-gray-300 rounded-lg px-2 py-1 text-xs text-gray-700 outline-none focus:border-gray-500">
+                                    <input type="date" id="filtro_fecha_fin" name="filtro_fecha_fin" value="{{filtro_fecha_fin}}" 
+                                           class="w-full bg-white border border-gray-300 rounded-lg px-2 py-1 text-xs text-gray-700 outline-none focus:border-gray-500">
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-2 gap-2">
+                                <div class="flex flex-col gap-1">
+                                    <h5 class="text-[10px] font-bold text-gray-500 uppercase tracking-wider">Categoría</h5>
+                                    <input type="text" id="filtro_categoria" name="filtro_categoria" placeholder="Buscar..." value="{{filtro_categorias}}" 
+                                           class="w-full bg-white border border-gray-300 rounded-lg px-2 py-1 text-xs text-gray-700 outline-none focus:border-gray-500">
+                                </div>
+
+                                <div class="flex flex-col gap-1">
+                                    <h5 class="text-[10px] font-bold text-gray-500 uppercase tracking-wider">Producto</h5>
+                                    <input type="text" id="filtro_producto" name="filtro_producto" placeholder="Buscar..." value="{{filtro_producto}}" 
+                                           class="w-full bg-white border border-gray-300 rounded-lg px-2 py-1 text-xs text-gray-700 outline-none focus:border-gray-500">
+                                </div>
+                            </div>
+
+                            <div class="flex justify-end mt-0.5">
+                                <input type="submit" value="Buscar" name="btn-buscar" 
+                                       class="cursor-pointer bg-[#3B7597] hover:bg-[#093C5D] text-white font-medium px-4 py-1.5 rounded-lg text-xs transition-colors shadow-sm">
+                            </div>
+                        </form>
                     </div>
+                </div>
 
-                </div> </div>
-        </form>
+            </div>
 
-    </div>
+            <div class="w-full">
+                <form action="/Inicio" method="POST" enctype="multipart/form-data">
+                    <button type="submit" name="generar-pdf" class="w-full bg-red-600 hover:bg-red-700 text-white font-medium py-2 px-3 rounded-md text-xs transition-colors shadow-sm">
+                        Generar PDF
+                    </button>
+                </form>
+            </div>
 
-</div>
-
-
-<div class="resultados-filtros grid shadow-lg mt-6 mb-3 h-90 bg-[#FFFFFF] w-120  rounded-md">
-
-<div class="resultado-procesamiento grid grid-cols-2 gap-1 mt-4 font-[Roboto] text-center">
-
-    <div class="grid grid-rows-2 bg-[#3B7597] w-55 text-[#FFFFFF] font-light rounded-xl ">
-    <strong><i class="bx bx-dollar-circle bg-[#F5E9E6]/25 p-2 text-xl mt-2 rounded-lg " /></i>Total de ventas:</strong>
-    <strong  class="font-semibold">${{totalVentas}}</strong>
-    </div>
-
-    <div class="grid grid-rows-2 bg-[#3B7597] w-55 text-[#FFFFFF] font-light rounded-xl">
-    <strong><i class="bx bx-container bg-[#F5E9E6]/25 p-2 text-xl mt-2 rounded-lg" /></i>Total de productos vendidos:</strong>
-     <strong  class="font-semibold">{{totalProductosVendidos}}</strong>
-    </div>
-
-    <div class="grid grid-rows-2 bg-[#3B7597] w-55 mt-3 text-[#FFFFFF] font-light rounded-xl">
-        <strong><i class="bx bx-piggy-bank bg-[#F5E9E6]/25 p-2 text-xl mt-2 rounded-lg" /></i>Promedio de ventas:</strong>
-        <strong class="font-semibold">${{"%.2f" | format(promedioVentas)}}</strong>
-    </div>
-
-    <div class="grid grid-rows-2 bg-[#3B7597] w-55 mt-3 text-[#FFFFFF] font-light p-3 rounded-xl">
-        <strong><i class="bx bx-categories bg-[#F5E9E6]/25 p-2 text-xl mt-2 rounded-lg" /></i>Categoria con mas ingresos:</strong>
-        <strong  class="font-semibold" >{{categoriaMax}}</strong>
-    </div>
-
-    </div>
-
-<div class="Filtros">
-
-    <form action="/Inicio" method="POST">
-    <div class="filtro-fecha">
-<input type="date" id="filtro_fecha_inicio" name="filtro_fecha_inicio" value="{{filtro_fecha_inicio}}">
-<input type="date" id="filtro_fecha_fin" name="filtro_fecha_fin"  value="{{filtro_fecha_fin}}">
-    </div>
-
-    <div class="filtro-categoria">
-        <input type="text" id="filtro_categoria" name="filtro_categoria" placeholder="Buscar por categoria"  value="{{filtro_categorias}}">
-    </div>
-
-    
-    <div class="filtro-producto">
-        <input type="text" id="filtro_producto" name="filtro_producto" placeholder="Buscar por producto"  value="{{filtro_producto}}">
-    </div>
-
-    <div class="boton-buscar">
-        <input type="submit" value="Buscar" name="btn-buscar">
-    </div>
-
-    </form>
-
-
-</div>
-</div>
-
-
-<div style="background: white; margin-bottom: 20px; padding: 15px; border-radius: 8px;">
-        {{ barras | safe }}
-    </div>
-
-    <div style="background: white; margin-bottom: 20px; padding: 15px; border-radius: 8px;">
-        {{ lineas | safe }}
-    </div>
-
-    <div style="background: white; margin-bottom: 20px; padding: 15px; border-radius: 8px; max-width: 600px;">
-        {{ pastel | safe }}
         </div>
 
-        <div class="btn-generar">
-           
-            <form action="/Inicio" method="POST"enctype="multipart/form-data" >
-                <button type="submit" name="generar-pdf">Generar PDF</button>
-            </form>
+        <div class="flex-1 w-full flex flex-col gap-5">
+            <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-200">
+                {{ barras | safe }}
+            </div>
+            <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-200">
+                {{ lineas | safe }}
+            </div>
+            <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-200">
+                {{ pastel | safe }}
+            </div>
         </div>
 
-</body>
+    </div>
+
+</div>
 {% endblock %}

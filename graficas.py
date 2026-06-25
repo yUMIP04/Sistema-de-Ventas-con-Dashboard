@@ -65,8 +65,13 @@ def Create_Graficas (archivo_csv, filtro_fecha_inicio = None, filtro_fecha_fin =
     try:
       
         tabla_barras = datos_csv.groupby("Nombre Producto")["Cantidad Vendida"].sum().reset_index()
-        Grafica_Barras = px.bar(tabla_barras, x="Nombre Producto", y="Cantidad Vendida", title="Ventas por producto")
+        Grafica_Barras = px.bar(tabla_barras, x="Nombre Producto", y="Cantidad Vendida", title="Ventas por producto", color_discrete_sequence=['#3B7597'])
 
+        Grafica_Barras.update_layout(
+            autosize=True,
+            height=280,
+            margin = dict(l=10, r=10, t=25, b=10)
+        )
         div_barras = Grafica_Barras.to_html(full_html = False, include_plotlyjs="cdn")
 
         plt.figure(figsize=(6, 3.5))
@@ -83,7 +88,13 @@ def Create_Graficas (archivo_csv, filtro_fecha_inicio = None, filtro_fecha_fin =
     # Grafica de Lineas
     try:
         tabla_lineas = datos_csv.groupby(['Fecha', 'Nombre Producto'])['Precio'].sum().reset_index()
-        Grafica_Lineas = px.line(tabla_lineas, x='Fecha', y='Precio', color='Nombre Producto', title='Ventas por Fecha y Producto')
+        Grafica_Lineas = px.line(tabla_lineas, x='Fecha', y='Precio', color='Nombre Producto', title='Ventas por Fecha y Producto', color_discrete_sequence=['#093C5D', '#3B7597', '#6FD1D7'])
+        Grafica_Lineas.update_layout(
+            autosize=True, 
+            height=280,
+              margin=dict(l=10, r=10, t=25, b=10)
+        )
+
         div_lineas = Grafica_Lineas.to_html(full_html = False, include_plotlyjs=False)
 
         plt.figure(figsize=(6, 3.5))
@@ -104,7 +115,12 @@ def Create_Graficas (archivo_csv, filtro_fecha_inicio = None, filtro_fecha_fin =
    
     try:
         tabla_pastel = datos_csv.groupby('Categoria')["Ingresos Totales"].sum().reset_index()
-        Grafica_Pastel = px.pie(tabla_pastel, values="Ingresos Totales", names="Categoria", title="Distribucion por Categoria")
+        Grafica_Pastel = px.pie(tabla_pastel, values="Ingresos Totales", names="Categoria", title="Distribucion por Categoria", color_discrete_sequence=['#093C5D', '#3B7597', '#6FD1D7'])
+        Grafica_Pastel.update_layout(
+              autosize=True, 
+            height=280,
+              margin=dict(l=10, r=10, t=25, b=10)
+        )
         div_pastel = Grafica_Pastel.to_html(full_html=False, include_plotlyjs=False)
 
         plt.figure(figsize=(6, 3.5))
