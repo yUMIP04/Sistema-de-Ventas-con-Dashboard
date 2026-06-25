@@ -40,14 +40,31 @@
 </div>
 
 
-<div class="resultados-filtros shadow-lg mt-6 mb-3 h-80 bg-[#FFFFFF] w-120 h-40 rounded-md">
+<div class="resultados-filtros grid shadow-lg mt-6 mb-3 h-90 bg-[#FFFFFF] w-120  rounded-md">
 
-<div class="resultado-procesamiento ">
-    <strong>Total de ventas: {{totalVentas}}</strong>
-    <strong>Total de productos vendidos:{{totalProductosVendidos}}</strong>
-    <strong>Promedio de ventas:{{"%.2f" | format( promedioVentas)}}</strong>
-    <strong>Categoria con mas ingresos:{{categoriaMax}}</strong>
-</div>
+<div class="resultado-procesamiento grid grid-cols-2 gap-1 mt-4 font-[Roboto] text-center">
+
+    <div class="grid grid-rows-2 bg-[#3B7597] w-55 text-[#FFFFFF] font-light rounded-xl ">
+    <strong><i class="bx bx-dollar-circle bg-[#F5E9E6]/25 p-2 text-xl mt-2 rounded-lg " /></i>Total de ventas:</strong>
+    <strong  class="font-semibold">${{totalVentas}}</strong>
+    </div>
+
+    <div class="grid grid-rows-2 bg-[#3B7597] w-55 text-[#FFFFFF] font-light rounded-xl">
+    <strong><i class="bx bx-container bg-[#F5E9E6]/25 p-2 text-xl mt-2 rounded-lg" /></i>Total de productos vendidos:</strong>
+     <strong  class="font-semibold">{{totalProductosVendidos}}</strong>
+    </div>
+
+    <div class="grid grid-rows-2 bg-[#3B7597] w-55 mt-3 text-[#FFFFFF] font-light rounded-xl">
+        <strong><i class="bx bx-piggy-bank bg-[#F5E9E6]/25 p-2 text-xl mt-2 rounded-lg" /></i>Promedio de ventas:</strong>
+        <strong class="font-semibold">${{"%.2f" | format(promedioVentas)}}</strong>
+    </div>
+
+    <div class="grid grid-rows-2 bg-[#3B7597] w-55 mt-3 text-[#FFFFFF] font-light p-3 rounded-xl">
+        <strong><i class="bx bx-categories bg-[#F5E9E6]/25 p-2 text-xl mt-2 rounded-lg" /></i>Categoria con mas ingresos:</strong>
+        <strong  class="font-semibold" >{{categoriaMax}}</strong>
+    </div>
+
+    </div>
 
 <div class="Filtros">
 
