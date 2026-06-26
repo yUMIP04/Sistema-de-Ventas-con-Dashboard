@@ -108,7 +108,7 @@ def Inicio_dashboard():
                 ruta_final = os.path.join(carpeta_csv, archivo_actual)
 
 
-                graf_pastel, graf_lineas, graf_barras = Create_Graficas(ruta_final, filtro_fecha_inicio, filtro_fecha_fin, filtro_categoria, filtro_producto)
+                graf_pastel, graf_lineas, graf_barras,total_ventas_dinero, total_productos_vendidos, ticket_promedio, categoria_MaxIngresos = Create_Graficas(ruta_final, filtro_fecha_inicio, filtro_fecha_fin, filtro_categoria, filtro_producto)
 
             else:
                 print("Intentaste filtrar pero no se ha subido algun archivo CSV todavia")
@@ -141,7 +141,7 @@ def Inicio_dashboard():
 
                 promedio_float = float(ticket_promedio)
 
-                graf_pastel, graf_lineas, graf_barras = Create_Graficas(ruta_final, filtro_fecha_inicio, filtro_fecha_fin, filtro_categoria)
+                graf_pastel, graf_lineas, graf_barras, total_ventas_dinero, total_productos_vendidos, ticket_promedio, categoria_MaxIngresos = Create_Graficas(ruta_final, filtro_fecha_inicio, filtro_fecha_fin, filtro_categoria)
 
             else:
                 print("Formulario enviado pero sin archivo seleccionados")

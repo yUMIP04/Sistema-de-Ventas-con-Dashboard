@@ -49,6 +49,28 @@ def Create_Graficas (archivo_csv, filtro_fecha_inicio = None, filtro_fecha_fin =
     if filtro_producto:
         datos_csv = datos_csv[datos_csv["Nombre Producto"] == filtro_producto]
 
+    
+    #CALCULANDO FILTROS ACTUALIZADOS
+
+    total_ventas_dineroFiltrado = 0.0
+    total_productos_vendidosFiltrado = 0
+    ticket_promedioFiltrado = 0.0
+    categoria_MaxIngresosFiltrado = ""
+
+    total_ventas_dineroFiltrado = datos_csv["Ingresos Totales"].sum()
+    total_productos_vendidosFiltrado = datos_csv["Cantidad Vendida"].sum()
+
+    if total_productos_vendidosFiltrado > 0:
+
+        ticket_promedioFiltrado = total_ventas_dineroFiltrado / total_productos_vendidosFiltrado
+        categoria_MaxIngresosFiltrado =str( datos_csv.groupby("Categoria")["Ingresos Totales"].sum().idxmax())
+    
+    else:
+
+        ticket_promedioFiltrado = 0
+        categoria_MaxIngresosFiltrado = "Sin datos"
+   
+
    #CREANDO GRAFICAS (LOGICA)
 
     div_barras = ""
@@ -133,4 +155,4 @@ def Create_Graficas (archivo_csv, filtro_fecha_inicio = None, filtro_fecha_fin =
         print(f"Hubo un error al crear la grafica de pastel: {e}")
     
 
-    return div_pastel, div_lineas, div_barras
+    return div_pastel, div_lineas, div_barras, total_ventas_dineroFiltrado, total_productos_vendidosFiltrado, ticket_promedioFiltrado, categoria_MaxIngresosFiltrado
