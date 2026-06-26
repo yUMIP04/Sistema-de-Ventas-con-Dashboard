@@ -16,7 +16,8 @@ def Create_Tables():
     cursor = conexion.cursor()
     
     try:
-        
+        cursor.execute("PRAGMA foreign_keys = ON")
+
         cursor.execute('''
                        CREATE TABLE IF NOT EXISTS Usuarios( 
                        id_usuario INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -26,16 +27,18 @@ def Create_Tables():
                        ''')
         
         cursor.execute('''
-                       CREATE TABLE IF NOT EXISTS CSVs(
-                       id_csv INTEGER PRIMARY KEY AUTOINCREMENT,
-                       nombre_usuario VARCHAR,
-                       nombre_csv VARCHAR,
-                       total_productos_Vendidos INTEGER,
+                       
+                       CREATE TABLE IF NOT EXISTS ArchivosPDF(
+                       id_archivos_PDF INTEGER PRIMARY KEY AUTOINCREMENT,
+                       nombre_archivo VARCHAR,
+                       fecha VARCHAR,
+                       total_productos_vendidos VARCHAR,
                        total_ventas REAL,
                        promedio_ventas REAL,
-                       producto_mas_vendido VARCHAR,
-                       categoria_masIngresos VARCHAR,
-                       FOREIGN KEY (nombre_usuario) REFERENCES Usuarios(nombre_usuario) 
+                       categoriaMax_ingresos VARCHAR,
+                       id_usuario INTEGER,
+                       FOREING KEY id_usuario REFERENCES Usuarios(id_usuario)
+
                        )''')
         
         conexion.commit()

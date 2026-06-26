@@ -24,7 +24,12 @@
 </head>
 <body>
 
-    <header class="flex flex-row-reverse items-center  bg-[#3B7597] h-13">
+    <header class="flex flex-row justify-center gap-240  items-center  bg-[#3B7597] h-13">
+
+         <ul class="flex flex-row justify-end items-center grow-10  gap-20">
+            <li class="text-[#FAFBF5]"><a href="{{ url_for('Inicio_dashboard') }}"><i class="bx bx-home" /></i>Inicio</a></li>
+            <li class="text-[#FAFBF5]" ><a href="{{ url_for('Historial') }}"><i class="bx bx-file-detail" /></i>Historial</a></li>            
+       
 
         <div class="flex bg-[#FAFBF5] p-1 rounded-md cursor-pointer mr-8">
          <p><i class="bx bx-user-circle" /></i>{{session['nombre_usuario']}}</p>
@@ -33,7 +38,9 @@
             <button class="btn-abrir cursor-pointer"><i class="bx bx-caret-big-left" /></i></button>
          </div>
          </div>
-         
+        
+         </ul>
+
     </header>
  <div class="options float-end absolute right-8 top-10 bg-[#E8E6E3] p-1 rounded-sm hover:bg-[#D92E0B] hover:text-[#FAFBF5] transition-bg duration-300 ease-in-out" style="display: none;">
             <ul>

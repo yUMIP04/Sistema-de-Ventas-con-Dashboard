@@ -35,6 +35,8 @@ def index():
             clave_hasheada = generate_password_hash(clave)
             
             insert_user(nombre_usuario, clave_hasheada)
+
+            return redirect(url_for('inicio_sesion'))
         
     return render_template("index.html") 
 
@@ -187,6 +189,14 @@ def Inicio_dashboard():
                            pastel=graf_pastel, lineas=graf_lineas, barras=graf_barras, filtro_fecha_inicio=filtro_fecha_inicio, 
                            filtro_fecha_fin = filtro_fecha_fin, filtro_categorias=filtro_categoria, filtro_producto=filtro_producto)
 
+
+#🌟HISTORIAL
+
+@app.route("/Historial", methods=['GET', 'POST'])
+
+def Historial():
+
+    return render_template("Historial.html")
 
 #🌟BASE
 
