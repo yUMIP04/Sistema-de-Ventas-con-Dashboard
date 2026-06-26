@@ -31,13 +31,13 @@ def Create_Tables():
                        CREATE TABLE IF NOT EXISTS ArchivosPDF(
                        id_archivos_PDF INTEGER PRIMARY KEY AUTOINCREMENT,
                        nombre_archivo VARCHAR,
-                       fecha VARCHAR,
-                       total_productos_vendidos VARCHAR,
+                       fecha DATE,
+                       total_productos_vendidos INTEGER,
                        total_ventas REAL,
                        promedio_ventas REAL,
                        categoriaMax_ingresos VARCHAR,
                        id_usuario INTEGER,
-                       FOREING KEY id_usuario REFERENCES Usuarios(id_usuario)
+                       FOREIGN KEY (id_usuario) REFERENCES Usuarios(id_usuario)
 
                        )''')
         
