@@ -89,6 +89,10 @@ def Inicio_dashboard():
     categoria_MaxIngresos = ""
 
     archivo_actual = session.get('archivo_actual', '')
+    total_ventas_dinero = session.get('total_ventas_dinero', 0.0)
+    total_productos_vendidos = session.get('total_productos_vendidos', 0)
+    ticket_promedio = session.get('ticket_promedio', 0.0)
+    categoria_MaxIngresos = session.get('categoria_MaxIngresos', '')
 
     if request.method == 'POST':
 

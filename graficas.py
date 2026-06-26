@@ -10,7 +10,7 @@ def Create_Graficas (archivo_csv, filtro_fecha_inicio = None, filtro_fecha_fin =
 
     if not os.path.exists(archivo_csv):
         print("❌ El archivo no existe")
-        return None
+        return "", "", "", 0.0, 0, 0.0, "Sin datos"
 
     #LIMPIANDO ARCHIVOS CSV
 
@@ -48,7 +48,6 @@ def Create_Graficas (archivo_csv, filtro_fecha_inicio = None, filtro_fecha_fin =
 
     if filtro_producto:
         datos_csv = datos_csv[datos_csv["Nombre Producto"] == filtro_producto]
-
 
    #CREANDO GRAFICAS (LOGICA)
 
