@@ -100,8 +100,8 @@ def Inicio_dashboard():
 
             filtro_fecha_inicio = request.form.get('filtro_fecha_inicio')
             filtro_fecha_fin = request.form.get('filtro_fecha_fin')
-            filtro_producto = request.form.get('filtro_producto').lower()
-            filtro_categoria = request.form.get('filtro_categoria').lower()
+            filtro_producto = request.form.get('filtro_producto', '').lower()
+            filtro_categoria = request.form.get('filtro_categoria', '').lower()
 
             if archivo_actual:
                 carpeta_csv = os.path.join(app.root_path, 'static', 'uploads', 'CSV')
@@ -112,7 +112,25 @@ def Inicio_dashboard():
 
             else:
                 print("Intentaste filtrar pero no se ha subido algun archivo CSV todavia")
-        
+                
+        elif 'btn-limpiar' in request.form:
+            filtro_fecha_inicio = ""
+            filtro_fecha_fin = ""
+            filtro_producto = ""
+            filtro_categoria = ""
+
+            if archivo_actual:
+                carpeta_csv = os.path.join(app.root_path, 'static', 'uploads', 'CSV')
+                ruta_final = os.path.join(carpeta_csv, archivo_actual)
+
+
+                graf_pastel, graf_lineas, graf_barras,total_ventas_dinero, total_productos_vendidos, ticket_promedio, categoria_MaxIngresos = Create_Graficas(ruta_final, filtro_fecha_inicio, filtro_fecha_fin, filtro_categoria, filtro_producto)
+
+            else:
+                print("Intentaste filtrar pero no se ha subido algun archivo CSV todavia")
+
+                
+
         elif 'file-csv' in request.files:
 
             archivo_csv = request.files['file-csv']
@@ -141,7 +159,7 @@ def Inicio_dashboard():
 
                 promedio_float = float(ticket_promedio)
 
-                graf_pastel, graf_lineas, graf_barras, total_ventas_dinero, total_productos_vendidos, ticket_promedio, categoria_MaxIngresos = Create_Graficas(ruta_final, filtro_fecha_inicio, filtro_fecha_fin, filtro_categoria)
+                graf_pastel, graf_lineas, graf_barras, _, _, _, _ = Create_Graficas(ruta_final, filtro_fecha_inicio, filtro_fecha_fin, filtro_categoria)
 
             else:
                 print("Formulario enviado pero sin archivo seleccionados")
