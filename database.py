@@ -103,12 +103,13 @@ def get_PDFs():
 
         cursor.execute('SELECT nombre_archivo, fecha, nombre_creador FROM archivosPDF')
 
-        conexion.commit()
-        conexion.close()
-        
+        resultados = cursor.fetchone()
+        return resultados
+
     except Exception as e:
 
         print("❌ Hubo un error al obtener de la BD la informacion de los pdfs")
+
 #🌟LOGUEAR USUARIO
 
 def loguear_user(nombre):
@@ -129,3 +130,4 @@ def loguear_user(nombre):
     
     finally:
         conexion.close()
+

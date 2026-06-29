@@ -21,8 +21,8 @@
 
 <div class="Table-PDF">
 
-    <table>
-        <thead>
+    <table class="tabla-Historial">
+        <thead class="tablaHeader-Historial">
             <tr> 
                 <th>Nombre</th>
             <th>Fecha</th>
@@ -31,7 +31,7 @@
             </tr>
         </thead>
 
-        <tbody>
+        <tbody class="tablaCuerpo-Historial">
 
             <tr>
                 <td>archivo.pdf</td>
@@ -44,4 +44,7 @@
         </tbody>
     </table>
 </div>
+
+<script type="module" src="{{ url_for('static', filename='JS/modules/uiTablasHistorial.js')}}"></script>
 {%endblock%}
+

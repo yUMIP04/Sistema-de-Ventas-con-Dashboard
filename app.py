@@ -206,7 +206,14 @@ def Historial():
 
 def APIObtenerPDF():
 
-    Lista
+    Lista_PDFS = get_PDFs()
+
+    return jsonify({
+        "nombre_PDF": Lista_PDFS[0],
+        "Fecha": Lista_PDFS[1],
+        "Creador": Lista_PDFS[2]
+    })
+
 #🌟BASE
 
 @app.route('/Base')
