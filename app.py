@@ -208,11 +208,18 @@ def APIObtenerPDF():
 
     Lista_PDFS = get_PDFs()
 
-    return jsonify({
+    try:
+        return jsonify({
         "nombre_PDF": Lista_PDFS[0],
         "Fecha": Lista_PDFS[1],
         "Creador": Lista_PDFS[2]
-    })
+        }), 200
+    
+    except Exception as e:
+
+        return jsonify({
+            "error": f"{e}"
+        }), 401
 
 #🌟BASE
 
