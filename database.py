@@ -36,6 +36,7 @@ def Create_Tables():
                        total_ventas REAL,
                        promedio_ventas REAL,
                        categoriaMax_ingresos VARCHAR,
+                       nombre_creador VARCHAR,
                        id_usuario INTEGER,
                        FOREIGN KEY (id_usuario) REFERENCES Usuarios(id_usuario)
 
@@ -73,7 +74,7 @@ def insert_user(nombre_usuario, clave):
 
 #🌟INSERTAR ARCHIVO CSV
 
-def insert_csv(archivo_csv):
+def insert_PDFinfo(nombre_archivo, fecha, total_productos_vendidos, total_ventas, promedio_ventas, categoriaMax_ingresos, nombre_creador):
 
     conexion = Create_DB()
     cursor = conexion.cursor()
@@ -81,15 +82,33 @@ def insert_csv(archivo_csv):
     try:
 
         cursor.execute('''
-                       INSERT INTO CSVs (nombre_csv) VALUES (?)''', (archivo_csv,))
+                       INSERT INTO ArchivosPDF (nombre_archivo,fecha,total_productos_vendidos, total_ventas, promedio_ventas, categoriaMax_ingresos, nombre_creador ) VALUES (?,?,?,?,?,?,?)''', (nombre_archivo, fecha, total_productos_vendidos, total_ventas, promedio_ventas, categoriaMax_ingresos, nombre_creador))
         
         conexion.commit()
         conexion.close()
-        print(f"🥳 Se inserto correctamente el archivo {archivo_csv} en la tabla")
+        print(f"🥳 Se inserto correctamente el archivo {nombre_archivo}\n fecha:{fecha}\n total productos vendidos:{total_productos_vendidos} \n total ventas: {total_ventas} \n promedio ventas: {promedio_ventas} \n categoria con mas ingresos: {categoriaMax_ingresos} \n nombre creador: {nombre_creador} en la tabla")
         
     except Exception as e:
 
         print(f"❌Hubo un error al insertar el archivo CSV: {e}") 
+
+#🌟MOSTRAR PDF EN HISTORIAL
+
+def get_PDFs():
+
+    conexion = Create_DB()
+    cursor = conexion.cursor()
+
+    try:
+
+        cursor.execute('SELECT nombre_archivo, fecha, nombre_creador FROM archivosPDF')
+
+        conexion.commit()
+        conexion.close()
+        
+    except Exception as e:
+
+        print("❌ Hubo un error al obtener de la BD la informacion de los pdfs")
 #🌟LOGUEAR USUARIO
 
 def loguear_user(nombre):

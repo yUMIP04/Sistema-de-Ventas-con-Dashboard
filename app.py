@@ -5,7 +5,7 @@ import os
 import datetime
 import jwt
 
-from database import Create_DB, Create_Tables, insert_user, loguear_user, insert_csv
+from database import Create_DB, Create_Tables, insert_user, loguear_user, insert_PDFinfo, get_PDFs
 from aux_pandas import ProcesamientoDatos_CSV
 from graficas import Create_Graficas
 from Generacion_PDF import Generar_PDF
@@ -90,12 +90,14 @@ def Inicio_dashboard():
     ticket_promedio = 0.0
     categoria_MaxIngresos = ""
 
+    fecha = ""
+
     archivo_actual = session.get('archivo_actual', '')
     total_ventas_dinero = session.get('total_ventas_dinero', 0.0)
     total_productos_vendidos = session.get('total_productos_vendidos', 0)
     ticket_promedio = session.get('ticket_promedio', 0.0)
     categoria_MaxIngresos = session.get('categoria_MaxIngresos', '')
-
+    nombre_creador = session.get('nombre_usuario', None)
     if request.method == 'POST':
 
         if 'btn-buscar' in request.form:
@@ -147,7 +149,7 @@ def Inicio_dashboard():
 
                 ruta_final = os.path.join(carpeta_csv, archivo_csv.filename)
                 archivo_csv.save(ruta_final)
-                insert_csv(archivo_csv.filename)
+                
 
                 session['archivo_actual'] = archivo_csv.filename
 
@@ -181,6 +183,8 @@ def Inicio_dashboard():
 
                 pdf_descarga = Generar_PDF(nombre_pdf, archivo_actual, fecha_resultados,total_ventas_dinero, total_productos_vendidos,ticket_promedio)
 
+                fecha = datetime.datetime.now().strftime('%Y-%m-%d')
+                insert_PDFinfo(nombre_pdf,fecha,total_productos_vendidos,total_ventas_dinero, ticket_promedio, categoria_MaxIngresos,nombre_creador )
                 if pdf_descarga:
                     return pdf_descarga
                 
@@ -193,11 +197,16 @@ def Inicio_dashboard():
 #🌟HISTORIAL
 
 @app.route("/Historial", methods=['GET', 'POST'])
-
+@token_required
 def Historial():
-
     return render_template("Historial.html")
 
+@app.route("/api/obtenerPDF", methods=['GET', 'POST'])
+@token_required
+
+def APIObtenerPDF():
+
+    Lista
 #🌟BASE
 
 @app.route('/Base')
