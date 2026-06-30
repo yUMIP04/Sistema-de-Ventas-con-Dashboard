@@ -110,6 +110,25 @@ def get_PDFs():
 
         print("❌ Hubo un error al obtener de la BD la informacion de los pdfs")
 
+#🌟VER PDF
+
+def get_namePDF():
+
+    conexion = Create_DB()
+    cursor = conexion.cursor()
+
+    try:
+
+        cursor.execute('SELECT nombre_archivo FROM archivosPDF')
+
+        resultados = cursor.fetchone()
+
+        return resultados
+    
+    except Exception as e:
+
+        print(f"❌ Hubo un error al ver los nombres de los pdfs")
+
 #🌟LOGUEAR USUARIO
 
 def loguear_user(nombre):

@@ -1,11 +1,11 @@
-from flask import Flask,redirect,url_for,render_template, request,flash,session, jsonify
+from flask import Flask,redirect,url_for,render_template, request,flash,session, jsonify, send_from_directory, abort
 from werkzeug.security import generate_password_hash, check_password_hash
 from dotenv import load_dotenv
 import os 
 import datetime
 import jwt
 
-from database import Create_DB, Create_Tables, insert_user, loguear_user, insert_PDFinfo, get_PDFs
+from database import Create_DB, Create_Tables, insert_user, loguear_user, insert_PDFinfo, get_PDFs, get_namePDF
 from aux_pandas import ProcesamientoDatos_CSV
 from graficas import Create_Graficas
 from Generacion_PDF import Generar_PDF
@@ -15,6 +15,8 @@ from middlewares.auth import token_required
 app = Flask(__name__)
 app.secret_key = os.getenv("SECRET_KEY")
 SecretKey_JWT = os.getenv("SECRET_KEYJWT")
+
+CARPETAS_PDFS = os.path.join('static', 'uploads', 'PDFS')
 
 load_dotenv()
 Create_DB()
@@ -201,6 +203,7 @@ def Inicio_dashboard():
 def Historial():
     return render_template("Historial.html")
 
+#🌟OBTENER PDF
 @app.route("/api/obtenerPDF", methods=['GET', 'POST'])
 @token_required
 
@@ -220,6 +223,43 @@ def APIObtenerPDF():
         return jsonify({
             "error": f"{e}"
         }), 401
+
+#🌟VER PDF
+
+@app.route("/api/ver_pdf/<nombre>", methods=['GET', 'POST'])
+@token_required
+
+def Ver_PDF(nombre):
+
+    namePDFS = get_namePDF()
+
+    try:
+
+        if nombre in namePDFS:
+
+            ruta_completa = os.path.join(CARPETAS_PDFS, nombre)
+
+            if os.path.exists(ruta_completa):
+
+                print("🥳 El archivo si existe en la carpeta de PDFS")
+
+                return send_from_directory(
+                    directory=CARPETAS_PDFS,
+                    path=nombre,
+                    mimetype = 'application/pdf'
+                )
+            
+            else:
+
+                return abort(404, description="El archivo no existe fisicamente en el seervidor")
+        
+        return abort(404, description="PDF no registrado en la BD")
+            
+    except Exception as e:
+
+        print(f"❌ Hubo un error al redirigir al PDF")    
+
+        return abort(500, description="Error interno del servidor")
 
 #🌟BASE
 
