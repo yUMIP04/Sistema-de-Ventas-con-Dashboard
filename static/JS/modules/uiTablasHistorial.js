@@ -11,22 +11,30 @@ async function LlenarTabla() {
     
     const fila = document.createElement("tr");
 
-    const btn_ver = document.createElement("a");
-    const btn_delete = document.createElement("a");
-
-    btn_ver.textContent = '<i class="bx bx-eye" /></i>';
-    btn_delete.textContent = '<i class="bx bx-trash" /></i>';
-    
     fila.innerHTML =`
       <td>${info.nombre_PDF}</td>
                 <td>${info.Fecha}</td>
                 <td>${info.Creador}</td>
                 <td><a href="/api/ver_pdf/${info.nombre_PDF}" target="blank" ><i class="bx bx-eye" /></i></a>
-                    <a href=""><i class="bx bx-trash" /></i></a>
+                    <a href="/api/eliminar/${info.nombre_PDF}" class="btn-eliminar"><i class="bx bx-trash" /></i></a>
                 </td>
     `
     BodyTable.appendChild(fila);
     
+    const btn_delete = fila.querySelector(".btn-eliminar");
+
+    btn_delete.addEventListener("click", (e) =>{
+
+      e.preventDefault();
+      
+      if(btn_delete){
+
+        BodyTable.removeChild(fila);
+
+        console.log("Eliminando del fronted la informacion del archivo...");
+      }
+    })
+
   })
 }
 

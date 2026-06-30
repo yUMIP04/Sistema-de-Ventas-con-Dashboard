@@ -263,11 +263,20 @@ def Ver_PDF(nombre):
 
 #🌟 ELIMINAR PDF
 
-app.route("/api/eliminar/<nombre>", methods=['GET', 'POST'])
+app.route("/api/eliminar/<nombre>", methods=['GET', 'POST', 'DELETE'])
 
 def Eliminar_pdf(nombre):
-    pass
+    
+    ruta_final = os.path.join(CARPETAS_PDFS, nombre)
 
+    if os.path.exists(ruta_final):
+
+        print("🥳 Si existe el archivo en la carpeta para eliminarla")
+        print("Eliminando de la BD...")
+        Delete_PDF(nombre)
+        os.remove(ruta_final)
+
+    return render_template("Inicio.html")
 #🌟BASE
 
 @app.route('/Base')
