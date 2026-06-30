@@ -129,6 +129,24 @@ def get_namePDF():
 
         print(f"❌ Hubo un error al ver los nombres de los pdfs")
 
+#🌟ELIMINAR PDF
+
+def Delete_PDF(nombre):
+
+    conexion = Create_DB()
+    cursor =conexion.cursor()
+
+    try:
+
+        cursor.execute('DELETE FROM archivosPDF WHERE nombre_archivo = ?',(nombre,))
+
+        conexion.commit()
+        conexion.close()
+
+        print("🥳 Se elimino correctamente la informacion del archivo")
+    except Exception as e:
+
+        print(f"❌Hubo un error al eliminar la informacion del archivo de la BD: {e}")
 #🌟LOGUEAR USUARIO
 
 def loguear_user(nombre):

@@ -5,7 +5,7 @@ import os
 import datetime
 import jwt
 
-from database import Create_DB, Create_Tables, insert_user, loguear_user, insert_PDFinfo, get_PDFs, get_namePDF
+from database import Create_DB, Create_Tables, insert_user, loguear_user, insert_PDFinfo, get_PDFs, get_namePDF, Delete_PDF
 from aux_pandas import ProcesamientoDatos_CSV
 from graficas import Create_Graficas
 from Generacion_PDF import Generar_PDF
@@ -260,6 +260,13 @@ def Ver_PDF(nombre):
         print(f"❌ Hubo un error al redirigir al PDF")    
 
         return abort(500, description="Error interno del servidor")
+
+#🌟 ELIMINAR PDF
+
+app.route("/api/eliminar/<nombre>", methods=['GET', 'POST'])
+
+def Eliminar_pdf(nombre):
+    pass
 
 #🌟BASE
 
