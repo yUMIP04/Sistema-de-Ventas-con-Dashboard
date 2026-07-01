@@ -1,4 +1,5 @@
 from flask import Flask,redirect,url_for,render_template, request,flash,session, jsonify, send_from_directory, abort
+from flask_cors import CORS
 from werkzeug.security import generate_password_hash, check_password_hash
 from dotenv import load_dotenv
 import os 
@@ -13,6 +14,7 @@ from middlewares.auth import token_required
 
 
 app = Flask(__name__)
+CORS(app)
 app.secret_key = os.getenv("SECRET_KEY")
 SecretKey_JWT = os.getenv("SECRET_KEYJWT")
 
@@ -277,6 +279,29 @@ def Eliminar_pdf(nombre):
         os.remove(ruta_final)
 
     return render_template("Inicio.html")
+
+#🌟DESCARGAR PDF
+
+@app.route("/api/descargarPDF/<nombre>", methods=['GET', 'POST'])
+
+def download_PDF(nombre):
+
+    ruta_final = os.path.join(CARPETAS_PDFS, nombre)
+    namePDF_List = get_namePDF()
+
+    if os.path.exists(ruta_final) and nombre in namePDF_List :
+
+        print("🥳El archivo si existe en la carpeta y en la BD para ser descargado")
+
+        return send_from_directory(directory=CARPETAS_PDFS, path=nombre, as_attachment=True, mimetype='application/pdf')
+    
+    
+    print(f"❌ El archivo {nombre} no se encontro en la ruta")
+    return jsonify({
+        "error": "El archivo no existe"
+    }), 404
+
+
 #🌟BASE
 
 @app.route('/Base')
