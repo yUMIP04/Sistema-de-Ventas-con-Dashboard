@@ -147,6 +147,26 @@ def Delete_PDF(nombre):
     except Exception as e:
 
         print(f"❌Hubo un error al eliminar la informacion del archivo de la BD: {e}")
+
+
+#🌟FILTRAR POR FECHA
+
+def get_FechaPDF(fecha):
+
+    conexion = Create_DB()
+    cursor = conexion.cursor()
+
+    try:
+
+        cursor.execute('SELECT nombre_archivo, fecha, nombre_creador FROM archivosPDF WHERE fecha = ?', (fecha,))
+
+        resultado = cursor.fetchone()
+
+        return resultado
+    
+    except Exception as e:
+
+        print("❌ Hubo un error al mostrar las fechas desde la BD")
 #🌟LOGUEAR USUARIO
 
 def loguear_user(nombre):

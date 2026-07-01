@@ -6,7 +6,7 @@ import os
 import datetime
 import jwt
 
-from database import Create_DB, Create_Tables, insert_user, loguear_user, insert_PDFinfo, get_PDFs, get_namePDF, Delete_PDF
+from database import Create_DB, Create_Tables, insert_user, loguear_user, insert_PDFinfo, get_PDFs, get_namePDF, Delete_PDF,get_FechaPDF
 from aux_pandas import ProcesamientoDatos_CSV
 from graficas import Create_Graficas
 from Generacion_PDF import Generar_PDF
@@ -301,7 +301,29 @@ def download_PDF(nombre):
         "error": "El archivo no existe"
     }), 404
 
+#🌟FILTRAR POR FECHA
 
+@app.route("/api/filtrarFecha/<fecha>", methods=['GET', 'POST'])
+
+def filtrar_por_Fecha(fecha):
+
+    try:
+       fechaPDF_List = get_FechaPDF(fecha)
+
+       if fecha in fechaPDF_List:
+           
+           return jsonify({
+               "nombre_PDF": fechaPDF_List[0],
+               "Fecha": fecha,
+               "nombre_creador":fechaPDF_List[2]
+           }), 200
+       
+    except Exception as e:
+
+        return jsonify({
+            "error": f"no se obtuvo ningun resultado: {e}"
+        }), 404
+    
 #🌟BASE
 
 @app.route('/Base')
