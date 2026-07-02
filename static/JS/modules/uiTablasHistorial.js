@@ -5,7 +5,7 @@ const BodyTable = document.querySelector(".tablaCuerpo-Historial");
   const FuncionApi = [await Get_PDF()];
 
   
-async function LlenarTabla() {
+export default async function LlenarTabla() {
   
   FuncionApi.forEach(info =>{
     

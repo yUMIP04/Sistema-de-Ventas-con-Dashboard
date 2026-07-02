@@ -21,18 +21,18 @@
 
 <div class="Filtros">
 
-    <form id="form-filtros" action="" method="POST">
+    <form enctype="multipart/form-data" id="form-filtros" action="" method="POST">
 
-    <input type="date" id="fecha-filtro">
-    <input type="text" placeholder="nombre archivo" id="nombreArchivo-filtro">
-    <input type="text" placeholder="nombre creador" id="nombreCreador-filtro">
+    <input type="date" name="fecha-Filtro" id="fecha-filtro">
+    <input type="text" name="nombreArchivo-Filtro" placeholder="nombre archivo" id="nombreArchivo-filtro">
+    <input type="text" name="nombreCreador-Filtro" placeholder="nombre creador" id="nombreCreador-filtro">
 
     <div class="div-buscar">
     <i class="bx bx-search" /></i><input type="submit" value="Buscar" id="buscar-filtro">
     </div>
 
     <div class="div-limpiar">
-    <i class="bx bx-broom" /></i> <input type="submit" value="Limpiar" id="limpiar-filtro">
+    <i class="bx bx-broom" /></i> <input type="reset" value="Limpiar" id="limpiar-filtro">
     </div>
 
 </form>

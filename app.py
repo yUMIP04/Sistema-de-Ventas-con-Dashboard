@@ -309,8 +309,9 @@ def filtrar_por_Fecha(fecha):
 
     try:
        fechaPDF_List = get_FechaPDF(fecha)
-
+       
        if fecha in fechaPDF_List:
+               
            
            return jsonify({
                "nombre_PDF": fechaPDF_List[0],
