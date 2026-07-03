@@ -265,7 +265,7 @@ def Ver_PDF(nombre):
 
 #🌟 ELIMINAR PDF
 
-app.route("/api/eliminar/<nombre>", methods=['GET', 'POST', 'DELETE'])
+@app.route("/api/eliminar/<nombre>", methods=['GET', 'POST', 'DELETE'])
 
 def Eliminar_pdf(nombre):
     
@@ -273,12 +273,9 @@ def Eliminar_pdf(nombre):
 
     if os.path.exists(ruta_final):
 
-        print("🥳 Si existe el archivo en la carpeta para eliminarla")
-        print("Eliminando de la BD...")
-        Delete_PDF(nombre)
+        print(f"🥳 El archivo {nombre} si existe")
         os.remove(ruta_final)
-
-    return render_template("Inicio.html")
+        Delete_PDF(nombre)
 
 #🌟DESCARGAR PDF
 
@@ -309,16 +306,12 @@ def filtrar_por_Fecha(fecha):
 
     try:
        fechaPDF_List = get_FechaPDF(fecha)
-       
-       if fecha in fechaPDF_List:
-               
-           
-           return jsonify({
-               "nombre_PDF": fechaPDF_List[0],
-               "Fecha": fecha,
-               "nombre_creador":fechaPDF_List[2]
-           }), 200
-       
+
+       data = {
+           "pdf":fechaPDF_List
+       }
+
+       return jsonify(data), 200
     except Exception as e:
 
         return jsonify({

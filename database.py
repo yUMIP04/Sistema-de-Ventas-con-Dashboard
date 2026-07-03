@@ -147,13 +147,19 @@ def Delete_PDF(nombre):
         cursor.execute('DELETE FROM archivosPDF WHERE nombre_archivo = ?',(nombre,))
 
         conexion.commit()
-        conexion.close()
+       
 
         print("🥳 Se elimino correctamente la informacion del archivo")
+
+        return True
     except Exception as e:
 
         print(f"❌Hubo un error al eliminar la informacion del archivo de la BD: {e}")
 
+        return False
+
+    finally:
+         conexion.close()
 
 #🌟FILTRAR POR FECHA
 
@@ -166,7 +172,7 @@ def get_FechaPDF(fecha):
 
         cursor.execute('SELECT nombre_archivo, fecha, nombre_creador FROM archivosPDF WHERE fecha = ?', (fecha,))
 
-        resultado = cursor.fetchone()
+        resultado = cursor.fetchall()
 
         return resultado
     
