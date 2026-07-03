@@ -127,13 +127,25 @@ def get_namePDF():
 
         cursor.execute('SELECT nombre_archivo FROM archivosPDF')
 
-        resultados = cursor.fetchone()
+        resultados = cursor.fetchall()
 
-        return resultados
+        lista_nombre = []
+
+        for names in resultados:
+
+            for name_pdf in names:
+
+                lista_nombre.append(name_pdf)
+
+        return lista_nombre
     
     except Exception as e:
 
         print(f"❌ Hubo un error al ver los nombres de los pdfs")
+        return []
+
+    finally:
+        conexion.close()
 
 #🌟ELIMINAR PDF
 

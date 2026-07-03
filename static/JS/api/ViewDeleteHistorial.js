@@ -1,9 +1,16 @@
 /*API PARA ELIMINAR PDF */
 
-async function Delete_PDF(nombre) {
+export default async function Delete_PDF(nombre) {
     
     const API = await fetch(`/api/eliminar/${nombre}`,{
 
-        method: 'DELETE'
+        method: 'DELETE',
+        headers:{
+            'content-Type': 'application/json'
+        }
     })
+
+    const datos = API.json();
+
+    return datos;
 }

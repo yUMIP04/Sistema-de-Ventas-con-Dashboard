@@ -259,7 +259,7 @@ def Ver_PDF(nombre):
             
     except Exception as e:
 
-        print(f"❌ Hubo un error al redirigir al PDF")    
+        print(f"❌ Hubo un error al redirigir al PDF:{e}")    
 
         return abort(500, description="Error interno del servidor")
 
@@ -271,12 +271,28 @@ def Eliminar_pdf(nombre):
     
     ruta_final = os.path.join(CARPETAS_PDFS, nombre)
 
-    if os.path.exists(ruta_final):
+    try:
+        if os.path.exists(ruta_final):
 
-        print(f"🥳 El archivo {nombre} si existe")
-        os.remove(ruta_final)
-        Delete_PDF(nombre)
+           print(f"🥳 El archivo {nombre} si existe")
+           os.remove(ruta_final)
+           Delete_PDF(nombre)
 
+           return jsonify({
+               "mensaje":True
+           }), 200
+        
+        else:
+            return jsonify({
+                "mensaje": "El archivo no existe"
+            }), 404
+        
+    except Exception as e:
+
+        return jsonify({
+            "error": f"Hubo un error{e}"
+        }), 500
+    
 #🌟DESCARGAR PDF
 
 @app.route("/api/descargarPDF/<nombre>", methods=['GET', 'POST'])
