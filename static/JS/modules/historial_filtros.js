@@ -1,17 +1,32 @@
 import FiltrarFecha_PDF from "../api/ViewFiltrosHistorial.js";
 
 const FormularioFiltros = document.getElementById("form-filtros");
-//const input_filtroFecha = document.getElementById("fecha-filtro");
 
-const datosForm = new FormData(FormularioFiltros);
 
-async function Formulario_Filtros(fecha) {
 
-    FormularioFiltros.addEventListener("")
+
+async function Formulario_Filtros() {
+
+    FormularioFiltros.addEventListener("submit", async (e) =>{
+        e.preventDefault();
+
+        const datosForm = new FormData(FormularioFiltros);
+        let datoFecha = datosForm.get("fecha-Filtro");
+        try{
+        const API_filtrarFecha = await FiltrarFecha_PDF(datoFecha);
+
+        if (API_filtrarFecha){
+
+            console.log("Si existe una coincidencia");
+        }
+
+        } catch(e){
+            console.error(`Hubo un error al encontrar una coincidencia`);
+        }
+    })
 
  }
 
-// let valor_fecha = input_filtroFecha.value;
- 
- //console.log(valor_fecha);
-console.log(datosForm);
+
+
+await Formulario_Filtros();

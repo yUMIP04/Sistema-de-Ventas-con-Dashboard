@@ -2,45 +2,42 @@ import Get_PDF from "../api/viewHistorial.js";
 
 const BodyTable = document.querySelector(".tablaCuerpo-Historial");
 
-  const FuncionApi = [await Get_PDF()];
+ async function LlenarTabla(datos) {
 
-  
-export default async function LlenarTabla() {
-  
-  FuncionApi.forEach(info =>{
-    
-    const fila = document.createElement("tr");
+  Object.values(datos.pdf).forEach(info =>{
 
-    fila.innerHTML =`
-      <td>${info.nombre_PDF}</td>
-                <td>${info.Fecha}</td>
-                <td>${info.Creador}</td>
-                <td><a href="/api/ver_pdf/${info.nombre_PDF}" target="blank" ><i class="bx bx-eye" /></i></a>
-               <a href="/api/descargarPDF/${info.nombre_PDF}" class="btn-descargar"  download><i class="bx bx-folder-down-arrow"></i></a>
-                    <a href="/api/eliminar/${info.nombre_PDF}" class="btn-eliminar"><i class="bx bx-trash" /></i></a>
-                </td>
-    `
-    BodyTable.appendChild(fila);
-    
-    const btn_delete = fila.querySelector(".btn-eliminar");
-    const btn_descargar = fila.querySelector(".btn-descargar");
+    console.log(info);
+    if(info){
 
-    btn_delete.addEventListener("click", (e) =>{
+      const fila = document.createElement("tr");
 
-      e.preventDefault();
-      
-      if(btn_delete){
+      fila.innerHTML=`
+      <td>${info[0]}</td>
+      <td>${info[1]}</td>
+      <td>${info[2]}</td>
+      <td> <td><a href="/api/ver_pdf/${info[0]}" target="blank" ><i class="bx bx-eye" /></i></a>
+               <a href="/api/descargarPDF/${info[0]}" class="btn-descargar"  download><i class="bx bx-folder-down-arrow"></i></a>
+                    <a href="/api/eliminar/${info[0]}" class="btn-eliminar"><i class="bx bx-trash" /></i></a>
+                </td></td>
+      `
+      BodyTable.appendChild(fila);
 
-        BodyTable.removeChild(fila);
+      const btn_delete = fila.querySelector(".btn-eliminar");
+      const btn_descargar = fila.querySelector("btn-descargar");
 
-        console.log("Eliminando del fronted la informacion del archivo...");
-      }
-    })
+      btn_delete.addEventListener("click", (e) =>{
+        e.preventDefault();
 
-    
+        if(btn_delete){
+          BodyTable.removeChild(fila);
 
+          console.log("Eliminando archivo...");
+        }
+      })
+    }
   })
 }
 
-console.log(FuncionApi);
-LlenarTabla();
+const FuncionApi = await Get_PDF();
+LlenarTabla(FuncionApi);
+

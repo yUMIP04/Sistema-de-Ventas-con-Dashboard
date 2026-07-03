@@ -103,12 +103,18 @@ def get_PDFs():
 
         cursor.execute('SELECT nombre_archivo, fecha, nombre_creador FROM archivosPDF')
 
-        resultados = cursor.fetchone()
+        resultados = cursor.fetchall()
         return resultados
 
     except Exception as e:
 
-        print("❌ Hubo un error al obtener de la BD la informacion de los pdfs")
+        print(f"❌ Hubo un error al obtener de la BD la informacion de los pdfs {e}")
+        return []
+    
+    finally:
+        cursor.close()
+        conexion.close()
+
 
 #🌟VER PDF
 

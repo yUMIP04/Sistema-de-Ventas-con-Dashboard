@@ -211,21 +211,21 @@ def Historial():
 
 def APIObtenerPDF():
 
-    Lista_PDFS = get_PDFs()
-
     try:
-        return jsonify({
-        "nombre_PDF": Lista_PDFS[0],
-        "Fecha": Lista_PDFS[1],
-        "Creador": Lista_PDFS[2]
-        }), 200
-    
+        Lista_PDFs = get_PDFs()
+
+        data = {
+        "pdf": Lista_PDFs
+        }
+
+        return jsonify(data), 200
     except Exception as e:
 
         return jsonify({
-            "error": f"{e}"
-        }), 401
+            "error": f"Hubo un error en la API para obtener el PDF: {e}"
+        }), 500
 
+    
 #🌟VER PDF
 
 @app.route("/api/ver_pdf/<nombre>", methods=['GET', 'POST'])
