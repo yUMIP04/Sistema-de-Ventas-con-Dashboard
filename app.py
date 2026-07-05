@@ -6,7 +6,7 @@ import os
 import datetime
 import jwt
 
-from database import Create_DB, Create_Tables, insert_user, loguear_user, insert_PDFinfo, get_PDFs, get_namePDF, Delete_PDF,get_FechaPDF
+from database import Create_DB, Create_Tables, insert_user, loguear_user, insert_PDFinfo, get_PDFs, get_namePDF, Delete_PDF, fecha_PDF
 from aux_pandas import ProcesamientoDatos_CSV
 from graficas import Create_Graficas
 from Generacion_PDF import Generar_PDF
@@ -316,24 +316,26 @@ def download_PDF(nombre):
 
 #🌟FILTRAR POR FECHA
 
-@app.route("/api/filtrarFecha/<fecha>", methods=['GET', 'POST'])
+@app.route("/api/FiltrarFecha/<fecha>", methods=['GET', 'POST'])
 
-def filtrar_por_Fecha(fecha):
+def Filtrar_FechaPDF(fecha):
+
+    funcion_filtrarFecha = fecha_PDF(fecha)
+
+    data = {
+        "pdf": funcion_filtrarFecha
+    }
 
     try:
-       fechaPDF_List = get_FechaPDF(fecha)
 
-       data = {
-           "pdf":fechaPDF_List
-       }
-
-       return jsonify(data), 200
+        return jsonify(data), 200
+    
     except Exception as e:
 
         return jsonify({
-            "error": f"no se obtuvo ningun resultado: {e}"
-        }), 404
-    
+            "Error": f"Hubo un error al mostrar el filtros de Fecha con la api: {e}"
+        }), 500
+
 #🌟BASE
 
 @app.route('/Base')

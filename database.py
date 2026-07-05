@@ -175,22 +175,29 @@ def Delete_PDF(nombre):
 
 #🌟FILTRAR POR FECHA
 
-def get_FechaPDF(fecha):
+def fecha_PDF(fecha):
 
     conexion = Create_DB()
     cursor = conexion.cursor()
-
     try:
 
         cursor.execute('SELECT nombre_archivo, fecha, nombre_creador FROM archivosPDF WHERE fecha = ?', (fecha,))
 
-        resultado = cursor.fetchall()
+        resultados = cursor.fetchall()
 
-        return resultado
-    
+        lista_fechas = []
+
+        for fechas_pdf in resultados:
+
+            lista_fechas.append(fechas_pdf)
+
+        return lista_fechas
+            
     except Exception as e:
+       print(f"Hubo un error al mostrar las fechas de la bd: {e}")
 
-        print("❌ Hubo un error al mostrar las fechas desde la BD")
+       return []
+           
 #🌟LOGUEAR USUARIO
 
 def loguear_user(nombre):

@@ -5,7 +5,7 @@ export default async function FiltrarFecha_PDF(fecha) {
     try{
 
     
-    const API = await fetch(`/api/filtrarFecha/${fecha}`, {
+    const API = await fetch(`/api/FiltrarFecha/${fecha}`, {
 
         method: 'POST',
 

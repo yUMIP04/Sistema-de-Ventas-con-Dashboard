@@ -1,32 +1,39 @@
 import FiltrarFecha_PDF from "../api/ViewFiltrosHistorial.js";
+import LlenarTabla from "./uiTablasHistorial.js";
 
-const FormularioFiltros = document.getElementById("form-filtros");
+const Form_Filtros = document.getElementById("form-filtros");
+
+async function FiltrarFecha_Tabla() {
 
 
+    Form_Filtros.addEventListener("submit", async (e) =>{
 
-
-async function Formulario_Filtros() {
-
-    FormularioFiltros.addEventListener("submit", async (e) =>{
         e.preventDefault();
 
-        const datosForm = new FormData(FormularioFiltros);
-        let datoFecha = datosForm.get("fecha-Filtro");
-        try{
-        const API_filtrarFecha = await FiltrarFecha_PDF(datoFecha);
+         const Form_data = new FormData(Form_Filtros);
+     
+    console.log(Form_data);
 
-        if (API_filtrarFecha){
+    let fecha_form = Form_data.get("fecha-Filtro");
 
-            console.log("Si existe una coincidencia");
-        }
+    try{
 
-        } catch(e){
-            console.error(`Hubo un error al encontrar una coincidencia`);
-        }
+    
+    const filtrarAPI = await FiltrarFecha_PDF(fecha_form);
+
+   
+    if(filtrarAPI){
+
+        console.log("Existe una o mas coincidencias");
+        await LlenarTabla(filtrarAPI);
+    } 
+
+    } catch(e){
+
+        console.error(`Hubo un error al encontrar una coincidencia: ${e}`);
+
+    }
     })
+}
 
- }
-
-
-
-await Formulario_Filtros();
+await FiltrarFecha_Tabla();
