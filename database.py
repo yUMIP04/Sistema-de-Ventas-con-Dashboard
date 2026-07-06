@@ -197,7 +197,69 @@ def fecha_PDF(fecha):
        print(f"Hubo un error al mostrar las fechas de la bd: {e}")
 
        return []
-           
+    
+
+#🌟FILTRAR POR CREADOR
+
+def Filtrar_CreadorPDF(nombre_creador):
+
+    conexion = Create_DB()
+    cursor = conexion.cursor()
+
+    try:
+
+        cursor.execute('SELECT nombre_archivo, fecha, nombre_creador FROM archivosPDF WHERE nombre_creador = ? ', (nombre_creador,))
+
+        resultados = cursor.fetchall()
+
+        lista_nombresCreador = []
+
+        for nombre_creador in resultados:
+
+            lista_nombresCreador.append(nombre_creador)
+
+        return lista_nombresCreador
+    
+    except Exception as e:
+
+        print(f"❌ Hubo un error al extraer los datos del creador en la BD")
+
+        return []
+    
+    finally:
+
+        conexion.close()
+        print("🌟Finalizo la conexion con la BD")
+
+#🌟FILTRAR POR NOMBRE_ARCHIVO
+
+def Filtrar_nombreArchivo(nombre_archivo):
+
+    conexion = Create_DB()
+    cursor = conexion.cursor()
+
+    try:
+
+        cursor.execute('SELECT nombre_archivo, fecha, nombre_creador FROM archivosPDF WHERE nombre_archivo = ?', (nombre_archivo,))
+
+        resultados = cursor.fetchall()
+        Lista_nombreArchivos = []
+
+        for nombre_archivo in resultados:
+
+            Lista_nombreArchivos.append(nombre_archivo)
+
+        return Lista_nombreArchivos
+    
+    except Exception as e:
+
+        print(f"❌Hubo un error al obtener el nombre del archivo en la BD")
+
+    finally:
+
+        conexion.close()
+        print("🌟Finalizo la conexion con la BD")
+        
 #🌟LOGUEAR USUARIO
 
 def loguear_user(nombre):

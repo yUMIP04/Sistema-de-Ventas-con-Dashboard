@@ -6,7 +6,7 @@ import os
 import datetime
 import jwt
 
-from database import Create_DB, Create_Tables, insert_user, loguear_user, insert_PDFinfo, get_PDFs, get_namePDF, Delete_PDF, fecha_PDF
+from database import Create_DB, Create_Tables, insert_user, loguear_user, insert_PDFinfo, get_PDFs, get_namePDF, Delete_PDF, fecha_PDF, Filtrar_CreadorPDF
 from aux_pandas import ProcesamientoDatos_CSV
 from graficas import Create_Graficas
 from Generacion_PDF import Generar_PDF
@@ -336,6 +336,28 @@ def Filtrar_FechaPDF(fecha):
             "Error": f"Hubo un error al mostrar el filtros de Fecha con la api: {e}"
         }), 500
 
+#🌟FILTRAR CREADOR
+
+@app.route("/api/FiltrarCreador/<nombre_creador>", methods=['GET', 'POST'])
+
+def FiltrarCreador(nombre_creador):
+
+    lista_CreadoresPDF = Filtrar_CreadorPDF(nombre_creador)
+
+    data = {
+        "pdf": lista_CreadoresPDF
+    }
+
+    try:
+
+        return jsonify(data), 200
+    
+    except Exception as e:
+
+        return jsonify({
+            "error": f"Hubo un error al ver la lista de creadores: {e}"
+        }), 401
+    
 #🌟BASE
 
 @app.route('/Base')

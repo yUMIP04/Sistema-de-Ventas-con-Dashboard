@@ -30,6 +30,8 @@ async function FiltrarFecha_Tabla() {
 
     } catch(e){
 
+        
+       
         console.error(`Hubo un error al encontrar una coincidencia: ${e}`);
 
     }
