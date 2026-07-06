@@ -4,13 +4,16 @@
 
 {%block content%}
 
+
+<div class="Historial-Completo ml-10 mt-8 flex-column ">
+
 <div class="Titulo-descrip">
 
 <div class="Titulo-contendor">
-<h1 class="Titulo">Historial de PDFs</h1>
+<h1 class="Titulo font-semibold text-2xl text-gray-800 tracking-tight">Historial de PDFs</h1>
 </div>
 
-<div class="description">
+<div class="description mt-3">
 
     <p>
         Gestiona tus PDFs de manera facil
@@ -19,26 +22,28 @@
 
 </div>
 
-<div class="Filtros">
+</div>
 
-    <form enctype="multipart/form-data" id="form-filtros" action="" method="POST">
+<div class="Filtros flex mt-8 flex-column justify-center ">
+
+    <form enctype="multipart/form-data" id="form-filtros" class="" action="" method="POST">
 
     <input type="date" name="fecha-Filtro" id="fecha-filtro">
     <input type="text" name="nombreArchivo-Filtro" placeholder="nombre archivo" id="nombreArchivo-filtro">
     <input type="text" name="nombreCreador-Filtro" placeholder="nombre creador" id="nombreCreador-filtro">
 
-    <div class="div-buscar">
+    
     <i class="bx bx-search" /></i><input type="submit" value="Buscar" id="buscar-filtro">
-    </div>
+    
 
-    <div class="div-limpiar">
+   
     <i class="bx bx-broom" /></i> <input type="reset" value="Limpiar" id="limpiar-filtro">
-    </div>
+    
 
 </form>
 </div>
 
-<div class="Table-PDF">
+<div class="Table-PDF flex mt-8 flex-column justify-center">
 
     <table class="tabla-Historial">
         <thead class="tablaHeader-Historial">
@@ -54,6 +59,7 @@
         </tbody>
     </table>
 </div>
+
 
 <script type="module" src="{{ url_for('static', filename='JS/modules/uiTablasHistorial.js')}}"></script>
 <script type="module" src="{{ url_for('static', filename='JS/modules/historial_filtros.js')}}"></script>
