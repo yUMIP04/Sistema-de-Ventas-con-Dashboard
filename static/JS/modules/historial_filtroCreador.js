@@ -9,11 +9,11 @@ async function FiltrarCreador_Tabla() {
 
         e.preventDefault();
 
-        const FormData = new FormData(Form_Filtros);
+        const formData = new FormData(Form_Filtros);
 
-        console.log(FormData);
+        console.log(formData);
 
-        let nombreCreador = FormData.get("nombreCreador-Filtro");
+        let nombreCreador = formData.get("nombreCreador-Filtro");
 
         try{
 

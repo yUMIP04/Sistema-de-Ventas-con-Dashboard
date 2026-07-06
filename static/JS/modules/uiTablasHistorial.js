@@ -3,6 +3,8 @@ import Delete_PDF from "../api/ViewDeleteHistorial.js";
 
 
 const BodyTable = document.querySelector(".tablaCuerpo-Historial");
+const Form_Filtros = document.getElementById("form-filtros");
+
 
 export default async function LlenarTabla(datos, callback) {
 
@@ -67,3 +69,7 @@ async function Inicializar_Historial() {
 
 Inicializar_Historial();
 
+Form_Filtros.addEventListener("reset", (e) =>{
+  
+  Inicializar_Historial();
+})

@@ -8,6 +8,7 @@ async function FiltrarFecha_Tabla() {
 
     Form_Filtros.addEventListener("submit", async (e) =>{
 
+        
         e.preventDefault();
 
          const Form_data = new FormData(Form_Filtros);
