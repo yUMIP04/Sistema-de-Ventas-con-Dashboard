@@ -13,31 +13,34 @@
 <h1 class="Titulo font-semibold text-2xl text-gray-800 tracking-tight">Historial de PDFs</h1>
 </div>
 
+
+
 <div class="description mt-3">
 
     <p>
         Gestiona tus PDFs de manera facil
     </p>
+    
 </div>
 
 </div>
 
 </div>
 
-<div class="Filtros flex mt-8 flex-column justify-center ">
+<div class="Filtros flex mt-8 flex-column justify-center bg-[#FAF9F6] w-220 ml-40 p-5 rounded-md shadow-md">
 
     <form enctype="multipart/form-data" id="form-filtros" class="" action="" method="POST">
 
-    <input type="date" name="fecha-Filtro" id="fecha-filtro">
-    <input type="text" name="nombreArchivo-Filtro" placeholder="nombre archivo" id="nombreArchivo-filtro">
-    <input type="text" name="nombreCreador-Filtro" placeholder="nombre creador" id="nombreCreador-filtro">
-
+    <input type="date" name="fecha-Filtro" class="mr-4 p-2 bg-[#E8E6E3] focus:outline-none focus:ring-2 focus:ring-[#6FD1D7] rounded-md  " id="fecha-filtro">
+    <input type="text" name="nombreArchivo-Filtro" class="mr-4 p-2 bg-[#E8E6E3] focus:outline-none focus:ring-2 focus:ring-[#6FD1D7] rounded-md " placeholder="nombre archivo" id="nombreArchivo-filtro">
+    <input type="text" name="nombreCreador-Filtro" class="mr-4 p-2 bg-[#E8E6E3] focus:outline-none focus:ring-2 focus:ring-[#6FD1D7] rounded-md " placeholder="nombre creador" id="nombreCreador-filtro">
     
-    <i class="bx bx-search" /></i><input type="submit" value="Buscar" id="buscar-filtro">
+   
+    <input type="submit" value="Buscar" id="buscar-filtro" class="mr-4 bg-[#3B7597] p-2 rounded-sm text-[#FFFFFF] cursor-pointer hover:bg-[#093C5D] hover: transition-colors duration-200 ease-in-out">
     
 
    
-    <i class="bx bx-broom" /></i> <input type="reset" value="Limpiar" id="limpiar-filtro">
+    <input type="reset" value="Limpiar" class="bg-red-600 p-2 rounded-sm text-[#FFFFFF] cursor-pointer hover:bg-red-700 hover: transition-colors duration-200 ease-in-out" id="limpiar-filtro">
     
 
 </form>
