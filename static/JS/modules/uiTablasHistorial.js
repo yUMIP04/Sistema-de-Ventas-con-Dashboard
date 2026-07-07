@@ -25,15 +25,28 @@ export default async function LlenarTabla(datos, callback) {
 
       const fila = document.createElement("tr");
 
-      fila.innerHTML=`<td>${info[0]}</td>
-      <td>${info[1]}</td>
-      <td>${info[2]}</td>
-      <td>
-        <a href="/api/ver_pdf/${info[0]}" target="_blank"><i class="bx bx-eye"></i></a>
-        <a href="/api/descargarPDF/${info[0]}" class="btn-descargar" download><i class="bx bx-folder-down-arrow"></i></a>
-        <a href="" class="btn-eliminar"><i class="bx bx-trash"></i></a>
-      </td>
-    `;
+     
+fila.className = "hover:bg-gray-50 transition-colors duration-150";
+
+fila.innerHTML = `
+  <td class="px-6 py-4 font-medium text-gray-900 text-left break-all">${info[0]}</td>
+  <td class="px-6 py-4 text-left whitespace-nowrap">${info[1]}</td>
+  <td class="px-6 py-4 text-left">${info[2]}</td>
+  <td class="px-6 py-4 text-center whitespace-nowrap">
+    <div class="flex items-center justify-center gap-3">
+      <a href="/api/ver_pdf/${info[0]}" target="_blank" title="Ver PDF">
+        <i class="bx bx-eye bg-[#6FD1D5] text-[#FFFFFF] p-2 rounded-md text-lg hover:bg-[#3B7597] transition-colors duration-200 ease-in-out"></i>
+      </a>
+      <a href="/api/descargarPDF/${info[0]}" class="btn-descargar" download title="Descargar PDF">
+        <i class="bx bx-folder-down-arrow bg-[#D6DB27] text-[#FFFFFF] p-2 rounded-md text-lg hover:bg-yellow-500 transition-colors duration-200 ease-in-out"></i>
+      </a>
+      <a href="" class="btn-eliminar" title="Eliminar">
+        <i class="bx bx-trash bg-red-600 text-[#FFFFFF] p-2 rounded-md text-lg hover:bg-red-700 transition-colors duration-200 ease-in-out"></i>
+      </a>
+    </div>
+  </td>
+`;
+
       BodyTable.appendChild(fila);
 
       const btn_delete = fila.querySelector(".btn-eliminar");
