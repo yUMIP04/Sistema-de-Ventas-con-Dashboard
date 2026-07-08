@@ -42,10 +42,17 @@
          </ul>
 
     </header>
- <div class="options float-end absolute right-8 top-10 bg-[#E8E6E3] p-1 rounded-sm hover:bg-[#D92E0B] hover:text-[#FAFBF5] transition-bg duration-300 ease-in-out" style="display: none;">
+ <div class="options float-end absolute right-8 top-10 bg-[#E8E6E3] p-1 rounded-sm " style="display: none;">
             <ul>
-                <li><a class="cerrar-sesion" href="{{ url_for('logout') }}">Cerrar Sesion</a></li>
+                <div class="panel-Admin  rounded-xs p-1 hover:bg-[#3B7597] hover:text-[#FAFBF5] transition-bg duration-300 ease-in-out">
+                <li><a class="" href="{{ url_for('Panel_Admin') }}">Panel de Administrador</a></li>
+                </div>
+                <hr>
+                <div class="cerrar-sesion rounded-xs hover:bg-[#D92E0B] hover:text-[#FAFBF5] transition-bg duration-300 ease-in-out ">
+                <li><a class="cerrar-sesion " href="{{ url_for('logout') }}">Cerrar Sesion</a></li>
+                </div>
             </ul>
+            
         </div>
     {% block content%} {%endblock%}
 

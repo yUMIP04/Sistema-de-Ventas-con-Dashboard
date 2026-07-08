@@ -205,6 +205,37 @@ def Inicio_dashboard():
 def Historial():
     return render_template("Historial.html")
 
+#🌟 PANEL ADMIN
+@app.route("/Panel_Admin")
+@token_required
+
+def Panel_Admin():
+
+    return render_template('Panel_Admin.html')
+
+@app.route("/RegistrarUsuario", methods=['GET', 'POST'])
+@token_required
+
+def Registrar_Usuario():
+
+       if request.method == 'POST':
+        
+        nombre_usuario = request.form['nombre']
+        clave = request.form['clave']
+        
+        if nombre_usuario and clave:
+            
+            clave_hasheada = generate_password_hash(clave)
+            
+            insert_user(nombre_usuario, clave_hasheada)
+
+            return redirect(url_for('Panel_Admin'))
+     
+       return render_template("Panel_Admin.html")
+
+
+#🌟==============================APIS==========================================🌟#
+
 #🌟OBTENER PDF
 @app.route("/api/obtenerPDF", methods=['GET', 'POST'])
 @token_required
