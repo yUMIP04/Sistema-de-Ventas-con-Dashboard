@@ -6,7 +6,7 @@ import os
 import datetime
 import jwt
 
-from database import Create_DB, Create_Tables, insert_user, loguear_user, insert_PDFinfo, get_PDFs, get_namePDF, Delete_PDF, fecha_PDF, Filtrar_CreadorPDF, Filtrar_nombreArchivo
+from database import Create_DB, Create_Tables, insert_user, loguear_user, insert_PDFinfo, get_PDFs, get_namePDF, Delete_PDF, fecha_PDF, Filtrar_CreadorPDF, Filtrar_nombreArchivo, get_usuarios
 from aux_pandas import ProcesamientoDatos_CSV
 from graficas import Create_Graficas
 from Generacion_PDF import Generar_PDF
@@ -228,8 +228,6 @@ def Registrar_Usuario():
             clave_hasheada = generate_password_hash(clave)
             
             insert_user(nombre_usuario, clave_hasheada)
-
-            return redirect(url_for('Panel_Admin'))
      
        return render_template("Panel_Admin.html")
 
@@ -410,6 +408,29 @@ def FiltrarNombreArchivo(nombre_archivo):
         return jsonify({
             "error": f"Hubo un error al usar la API para filtrar con el nombre archivo: {e}"
         }), 401
+
+#🌟MOSTRAR USUARIOS
+
+@app.route("/api/verUsuario", methods=['GET', 'POST'])
+
+def verUsuario():
+
+    Usuarios_Lista =get_usuarios()
+
+    data ={
+        "usuarios":Usuarios_Lista
+    }
+
+    try:
+
+        return jsonify(data), 200
+    
+    except Exception as e:
+
+        return jsonify({
+            "error": f"Hubo un error al ver los usuarios: {e}"
+        }), 401
+
 #🌟BASE
 
 @app.route('/Base')

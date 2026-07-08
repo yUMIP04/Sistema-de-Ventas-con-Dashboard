@@ -259,7 +259,31 @@ def Filtrar_nombreArchivo(nombre_archivo):
 
         conexion.close()
         print("🌟Finalizo la conexion con la BD")
-        
+
+
+#🌟MOSTRAR USUARIOS
+
+def get_usuarios():
+
+    conexion = Create_DB()
+    cursor = conexion.cursor()
+
+    try:
+        cursor.execute('SELECT nombre_usuario FROM Usuarios')
+
+        resultados = cursor.fetchall()
+        Lista_Usuarios = []
+
+        for usuario in resultados:
+
+            Lista_Usuarios.append(usuario)
+
+        return Lista_Usuarios
+    
+    except Exception as e:
+
+        print(f"Hubo un error al extraer la informacion de los usuarios de la BD: {e}")
+        return []    
 #🌟LOGUEAR USUARIO
 
 def loguear_user(nombre):
