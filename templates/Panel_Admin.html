@@ -6,7 +6,7 @@
 
 <body class="bg-gray-100" >
 
-     <div class="Historial-Complet ml-13 mt-6">
+    <div class="Historial-Complet ml-13 mt-6">
         <div class="Titulo-descrip">
             <h1 class="Titulo font-semibold text-2xl text-gray-800 tracking-tight">Panel del Administrador</h1>
             <p class="description mt-2 text-gray-500 text-sm">
@@ -15,57 +15,58 @@
         </div>
     </div>
 
- <div class="mt-5 ml-15 bg-white p-8 rounded-xl shadow-md w-full max-w-sm flex flex-col gap 7">
-        <div class= "flex justify-center items-center mb-4 ">
-            <h1 class="text-2xl font-bold text-gray-800">Registrar Nuevo Usuario</h1>
+    
+    <div class="Form-Tabla grid grid-cols-1 lg:grid-cols-2 gap-6 p-4">
+
+     
+        <div class="mt-5 ml-15 bg-white p-8 rounded-xl shadow-md w-full max-w-sm flex flex-col gap-7">
+            <div class="flex justify-center items-center mb-4">
+                <h1 class="text-2xl font-bold text-gray-800">Registrar Nuevo Usuario</h1>
+            </div>
+
+            <form action="/RegistrarUsuario" method="post" class="flex flex-col gap-4">
+
+                <div class="grid">
+                    <label for="nombre">Nombre:</label>
+                    <input type="text" name="nombre" id="input-form" class="px-3 py-2 bg-[#E8E6E3] rounded-lg p-1 focus:outline-none focus:ring-2 focus:ring-[#6FD1D7] focus:border-[#6FD1D7]" required>
+                </div>
+
+                <div class="grid gap-4">
+                    <label for="password">Nueva Clave:</label>
+                    <input type="password" name="clave" class="px-3 py-2 bg-[#E8E6E3] rounded-lg p-1 focus:outline-none focus:ring-2 focus:ring-[#6FD1D7] focus:border-[#6FD1D7]" maxlength="8" required>
+                </div>
+
+                <div class="grid">
+                    <label for="">Confirmacion de Clave:</label>
+                    <input type="password" name="clave-confirmacion" class="px-3 py-2 bg-[#E8E6E3] rounded-lg p-1 focus:outline-none focus:ring-2 focus:ring-[#6FD1D7] focus:border-[#6FD1D7]" maxlength="8" required>
+                </div>
+                
+                <div class="flex justify-center">
+                    <input class="bg-[#3B7597] p-2 w-full rounded-sm text-[#FAFBF5] hover:cursor-pointer hover:bg-[#093C5D] hover: transition-colors duration-300 ease-in-out " type="submit" value="Registrar Usuario" name="registrar-usuario">
+                </div>
+
+            </form>
         </div>
 
-        <form action="/RegistrarUsuario" method="post" class="flex flex-col gap-4">
+       
+        <div class="Tabla-Usuarios mt-10 w-full max-w-xl max-h-70 overflow-x-auto rounded-lg border border-gray-200 shadow-sm bg-white">
 
-            <div class="grid">
-            <label  for="nombre">Nombre:</label>
-            <input type="text" name="nombre" id="input-form" class="px-3 py-2 bg-[#E8E6E3] rounded-lg p-1 focus:outline-none focus:ring-2 focus:ring-[#6FD1D7] focus:border- ¨[#6FD1D7]" required>
-          </div>
+            <table class="min-w-full table-auto border-collapse">
+                <thead class="bg-gray-50 text-gray-700 text-sm font-semibold">
+                    <tr>
+                        <th class="px-6 py-3 text-left">#</th>
+                        <th class="px-6 py-3 text-left">Nombre</th>
+                        <th class="px-6 py-3 text-center">Acciones</th>
+                    </tr>
+                </thead>
 
-          <div class="grid gap-4">
-            <label for="password">Nueva Clave:</label>
-            <input type="password" name="clave" class=" px-3 py-2 bg-[#E8E6E3] rounded-lg p-1 focus:outline-none focus:ring-2 focus:ring-[#6FD1D7] focus:border- ¨[#6FD1D7]"  maxlength="8" required>
-           </div>
-
-           <div class="grid">
-            <label for="">Confirmacion de Clave:</label>
-            <input type="password" name="clave-confirmacion" class=" px-3 py-2 bg-[#E8E6E3] rounded-lg p-1 focus:outline-none focus:ring-2 focus:ring-[#6FD1D7] focus:border- ¨[#6FD1D7]" maxlength="8" required>
-            </div>
-            
-            <div class="flex justify-center ">
-            <input class="bg-[#3B7597] p-2 w-full rounded-sm text-[#FAFBF5] hover:cursor-pointer hover:bg-[#093C5D] hover: transition-colors duration-300 ease-in-out " type="submit" value="Registrar Usuario" name="registrar-usuario">
-            </div>
-
-        </form>
+                <tbody class="bodyUsuarios">
+                
+                </tbody>
+            </table>
+        </div>
 
     </div>
-
-    <!--TABLA DE USUARIOS-->
-
-    <div class="Tabla-Usuarios">
-
-        <table>
-
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Nombre</th>
-                    <th>Acciones</th>
-                </tr>
-            </thead>
-
-            <tbody class="bodyUsuarios">
-              
-            </tbody>
-
-        </table>
-    </div>
-
 </body>
 
 <script type="module" src="{{ url_for('static', filename='JS/modules/uiTablaUsuarios.js') }}"></script>

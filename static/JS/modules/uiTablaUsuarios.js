@@ -16,12 +16,12 @@ function Tabla_Usuarios(datos) {
 
         const fila = document.createElement("tr");
 
-        
+        fila.className = "border-b border-gray-200 hover:bg-gray-50 transition-colors";
 
         fila.innerHTML= `
-         <td>${contador}</td>
-                    <td>${nombres}</td>
-                    <td> <a href="" class="btn-eliminar" title="Eliminar">
+         <td class="px-6 py-4 font-medium text-gray-900 text-left break-all">${contador}</td>
+                    <td class="px-6 py-4 text-left whitespace-nowrap">${nombres}</td>
+                    <td class="text-center"> <a href="" class="btn-eliminar" title="Eliminar">
         <i class="bx bx-trash bg-red-600 text-[#FFFFFF] p-2 rounded-md text-lg hover:bg-red-700 transition-colors duration-200 ease-in-out"></i>
       </a></td>
         `;
