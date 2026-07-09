@@ -6,7 +6,7 @@ import os
 import datetime
 import jwt
 
-from database import Create_DB, Create_Tables, insert_user, loguear_user, insert_PDFinfo, get_PDFs, get_namePDF, Delete_PDF, fecha_PDF, Filtrar_CreadorPDF, Filtrar_nombreArchivo, get_usuarios
+from database import Create_DB, Create_Tables, insert_user, loguear_user, insert_PDFinfo, get_PDFs, get_namePDF, Delete_PDF, fecha_PDF, Filtrar_CreadorPDF, Filtrar_nombreArchivo, get_usuarios, Eliminar_Usuario
 from aux_pandas import ProcesamientoDatos_CSV
 from graficas import Create_Graficas
 from Generacion_PDF import Generar_PDF
@@ -430,6 +430,34 @@ def verUsuario():
         return jsonify({
             "error": f"Hubo un error al ver los usuarios: {e}"
         }), 401
+
+#🌟ELIMINAR USUARIO
+
+@app.route("/api/EliminarUsuario/<nombre>", methods=['DELETE'])
+
+def Eliminar_Usuarios(nombre):
+
+    try:
+
+        usuario_eliminado = Eliminar_Usuario(nombre)
+        
+        if usuario_eliminado:
+
+            return jsonify({
+                "mensaje": f"Usuario {nombre} eliminado con exito"
+            }), 200
+        
+        else:
+
+            return jsonify({
+                "mensaje": f"El usuario {nombre} no existe o no se pudo eliminar: {e}"
+            }), 404
+        
+    except Exception as e:
+
+            return jsonify({
+                "mensaje": f"Hubo un error al eliminar el usuario: {e}"
+            }), 500
 
 #🌟BASE
 

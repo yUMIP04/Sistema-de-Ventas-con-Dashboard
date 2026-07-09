@@ -284,6 +284,28 @@ def get_usuarios():
 
         print(f"Hubo un error al extraer la informacion de los usuarios de la BD: {e}")
         return []    
+    
+#🌟 ELIMINAR USUARIO
+
+def Eliminar_Usuario(nombre):
+
+    conexion = Create_DB()
+    cursor = conexion.cursor()
+
+    try:
+
+        cursor.execute('DELETE FROM Usuarios WHERE nombre_usuario = ?', (nombre,))
+
+        conexion.commit()
+
+    except Exception as e:
+
+        print(f"❌ Hubo un error al eliminar el usuario de la BD: {e}")
+
+    finally:
+
+        conexion.close()
+        
 #🌟LOGUEAR USUARIO
 
 def loguear_user(nombre):
