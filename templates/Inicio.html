@@ -46,7 +46,7 @@
                     <div class="grid grid-cols-2 gap-2 text-center">
                         <div class="flex flex-col items-center justify-center bg-[#3B7597] p-2 text-white rounded-lg min-h-[70px]">
                             <span class="flex items-center gap-1 text-[11px] opacity-90"><i class="bx bx-dollar-circle bg-white/25 p-1 rounded text-xs"></i> Total ventas</span>
-                            <strong class="font-semibold text-base mt-0.5">${{totalVentas}}</strong>
+                            <strong class="Total-ventas font-semibold text-base mt-0.5">${{totalVentas}}</strong>
                         </div>
 
                         <div class="flex flex-col items-center justify-center bg-[#3B7597] p-2 text-white rounded-lg min-h-[70px]">
@@ -105,7 +105,7 @@
             </div>
 
             <div class="w-full">
-                <form action="/Inicio" method="POST" enctype="multipart/form-data">
+                <form action="/Inicio" method="POST" enctype="multipart/form-data" class="form-pdf">
                     <button type="submit" name="generar-pdf" class="w-full bg-red-600 hover:bg-red-700 text-white font-medium py-2 px-3 rounded-md text-xs transition-colors shadow-sm">
                         Generar PDF
                     </button>
@@ -133,14 +133,14 @@
 
 <!--AVISO DE PDF-->
 
-<div class="success-pdf bg-black/40 fixed inset-0 z-50 flex items-center justify-center  ">
+<div class="success-pdf hidden  bg-black/40 fixed inset-0 z-50 flex items-center justify-center  ">
 
-    <div class="aviso bg-[#E8E6E3] max-h-520 max-w-520 w-100 h-100 flex justify-center items-center rounded-lg">
+    <div class="aviso bg-[#FFFFFF] max-h-520 max-w-520 w-100 h-100 flex justify-center items-center rounded-lg">
 
         <div class="rounded-lg border-solid border-2 border-[#093C5D] max-h-60 max-w-60 w-55 h-50 text-center m-auto">
-            <i class="bx bx-check-shield" /></i>
-        <h1>Descargado con exito</h1>
-        <button>Aceptar</button>
+            <i class="bx bx-check-shield text-[#5BDE6C] text-8xl p-2" /></i>
+        <h1 class="font-bold text-gray-800 tracking-tight">Descargado con exito</h1>
+        <button class="aceptar-pdf cursor-pointer m-2  bg-[#093C5D] text-[#FFFFFF] p-2 rounded-md">Aceptar</button>
         </div>
 
     </div>
