@@ -3,6 +3,9 @@ import Eliminar_Usuarios from "../api/ViewEliminarUsuario.js";
 
 const TablaUsuarios = document.querySelector(".Tabla-Usuarios");
 const CuerpoTabla = document.querySelector(".bodyUsuarios");
+const AvisoUsuarioExitoso = document.querySelector(".success-user"); 
+const FormularioUsuarios = document.querySelector(".Form-Users");
+const btn_aceptar = document.querySelector(".aceptar-usuario");
 
 function Tabla_Usuarios(datos) {
 
@@ -59,3 +62,27 @@ const ApiGetUsuarios = await GetUsuarios();
 Tabla_Usuarios(ApiGetUsuarios);
 
 console.log("🥳Si funciona el ui para la tabla usuarios");
+
+
+/*🌟Aviso de Usuario registrado */
+
+FormularioUsuarios.addEventListener("submit", (e) =>{
+
+    const data_form = new FormData(FormularioUsuarios);
+
+    const clave = data_form.get("clave");
+    const clave_confirm = data_form.get("clave-confirmacion");
+
+    const clave_limpia = clave.trim();
+    const clave_confirm_limpia = clave_confirm.trim();
+
+    const claves_iguales = clave_confirm_limpia === clave_limpia;
+
+    if(claves_iguales){
+
+        alert("Se registro un usuario con exito");
+    } else{
+        e.preventDefault();
+        alert("Las contraseñas no coinciden");
+    }
+})
