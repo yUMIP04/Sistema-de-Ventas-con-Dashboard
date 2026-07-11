@@ -52,19 +52,22 @@ btn_aceptar.addEventListener("click", (e) => {
 
 FormPdf.addEventListener("submit", (e) =>{
 
-    const Total_Ventas = document.querySelector(".Total-ventas");
+   const Total_Ventas = document.querySelector(".Total-ventas");
     const Total_ventasValor = Total_Ventas.textContent.trim();
 
-    console.log("El valor detectado es:", JSON.stringify(Total_ventasValor));
+  
+    const ventas_totalLimpio = Total_ventasValor.replace(/[$,]/g, "");
+    const ventas_totalfloat = parseFloat(ventas_totalLimpio);
+
     
-    if(Total_ventasValor === "" || Total_ventasValor === "$0" || Total_ventasValor.includes("undefined")){
-
-        e.preventDefault();
-
-        alert("No puede Generar el pdf, Por favor agregue un archivo.");
-        return;
+    if (isNaN(ventas_totalfloat) || ventas_totalfloat <= 0) {
+        e.preventDefault(); 
+        alert("No se puede producir el PDF porque no hay ventas registradas.");
+        return; 
     }
 
+    
     cartel_pdf.classList.remove("hidden");
     cartel_pdf.classList.add("flex");
 })
+

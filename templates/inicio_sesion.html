@@ -13,6 +13,33 @@
 <body class="bg-gray-100 flex min-h-screen items-center justify-center p-4">
 
     <div class= "bg-white p-8 rounded-xl shadow-md w-full max-w-md flex flex-col gap 7">
+        
+          <!--🌟Mensaje de flash-->
+
+ <!--🌟Mensaje de flash-->
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    {% for category, message in messages %}
+      
+      
+      {% if category == 'warning' %}
+        {% set colors = 'border-[#E6A23C] bg-[#FDF6EC] text-[#E6A23C]' %}
+      {% elif category == 'success' %}
+        {% set colors = 'border-[#67C23A] bg-[#F0F9EB] text-[#67C23A]' %}
+      {% else %}
+       
+        {% set colors = 'border-[#A62D39] bg-[#C9616F] text-white' %}
+      {% endif %}
+
+      <div class="alert alert-{{ category }} text-center border-2 border-solid p-2 mb-4 font-semibold {{ colors }}">
+          {{ message }}
+      </div>
+
+    {% endfor %}
+  {% endif %}
+{% endwith %}
+
+
         <div class="flex justify-center items-center">
             <h1 class="text-2xl font-bold text-gray-800">Inicio de Sesion</h1>
         </div>

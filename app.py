@@ -67,7 +67,9 @@ def inicio_sesion():
                 return redirect(url_for('Inicio_dashboard', token=token))
             else:
                 print("Contraseña incorrecta para este usuario.")
+                flash('Contraseña incorrecta o usuario incorrecto para este usuario', 'warning')
         else:
+            flash('No existe el usuario', 'danger')
             print("El nombre de usuario no existe en la base de datos.")
       
       return render_template('inicio_sesion.html')
@@ -231,8 +233,9 @@ def Registrar_Usuario():
      
        return render_template("Panel_Admin.html")
 
-
+#==================================================================================
 #🌟==============================APIS==========================================🌟#
+#==================================================================================
 
 #🌟OBTENER PDF
 @app.route("/api/obtenerPDF", methods=['GET', 'POST'])
