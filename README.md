@@ -19,19 +19,18 @@ Ademas de que puedes descargar un pdf con dicha informacion.
 
 ## 🎞️Imagenes del producto
 
-![Inicio Sesion](static/IMGReadme/inicio_Sesion.png)
+<img src="static/IMGReadme/inicio_Sesion.png" alt="Inicio Sesion" width="100%" />
 
-![Dashboard](static/IMGReadme/dashboard.png)
+<img src="static/IMGReadme/dashboard.png" alt="Dashboard" width="100%" />
 
-![Historial](static/IMGReadme/historial.png)
+<img src="static/IMGReadme/historial.png" alt="Historial" width="100%" />
 
-![Panel Admin](static/IMGReadme/panel_admin.png)
+<img src="static/IMGReadme/panel_admin.png" alt="Panel Admin" width="100%" />
 
 ---
 
 ## 🐍Tests(Pruebas Unitarias)
 
-![Prueba Unitaria 1](static/IMGReadme/prueba1.png)
+<img src="static/IMGReadme/prueba1.png" alt="Prueba 1" width="100%" />
 
-![Prueba Unitaria 2](static/IMGReadme/prueba2.png)
-
+<img src="static/IMGReadme/prueba2.png" alt="Prueba 2" width="100%" />
