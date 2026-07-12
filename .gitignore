@@ -3,3 +3,4 @@ __pycache__/
 AnalisisVentas.db
 .venv/
 .env
+tests/

@@ -24,28 +24,8 @@ load_dotenv()
 Create_DB()
 Create_Tables()
 
-@app.route("/", methods=['GET', 'POST'])
-
-#🌟REGISTRO
-def index():  
-    
-    if request.method == 'POST':
-        
-        nombre_usuario = request.form['nombre']
-        clave = request.form['clave']
-        
-        if nombre_usuario and clave:
-            
-            clave_hasheada = generate_password_hash(clave)
-            
-            insert_user(nombre_usuario, clave_hasheada)
-
-            return redirect(url_for('inicio_sesion'))
-        
-    return render_template("index.html") 
-
 #🌟INICIO DE SESION
-@app.route("/login", methods=['GET', 'POST'])
+@app.route("/", methods=['GET', 'POST'])
 def inicio_sesion():
       
       if request.method == 'POST':
