@@ -18,13 +18,20 @@ Ademas de que puedes descargar un pdf con dicha informacion.
 ---
 
 ## 🎞️Imagenes del producto
+
 ![Inicio Sesion](static/IMGReadme/inicio_Sesion.png)
+
 ![Dashboard](static/IMGReadme/dashboard.png)
+
 ![Historial](static/IMGReadme/historial.png)
+
 ![Panel Admin](static/IMGReadme/panel_admin.png)
 
 ---
 
 ## 🐍Tests(Pruebas Unitarias)
+
 ![Prueba Unitaria 1](static/IMGReadme/prueba1.png)
+
 ![Prueba Unitaria 2](static/IMGReadme/prueba2.png)
+
